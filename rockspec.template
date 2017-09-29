@@ -1,8 +1,9 @@
 package = "Faketorio"
-version = "VERSION"
+version = "VERSION-1"
 source = {
    url = "git://github.com/JonasJurczok/Faketorio",
    tag = "VERSION",
+   branch = "master"
 }
 description = {
    summary = "Support library for Factorio mod unit testing.",
