@@ -24,6 +24,6 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      apricot = "src/apricot.lua",
+      faketorio = "src/faketorio.lua",
    }
 }
