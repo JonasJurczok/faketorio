@@ -14,10 +14,6 @@ function faketorio.initialize_world()
 
   faketorio.world.settings = faketorio.create_settings(faketorio.world.game.players)
 
-  -- TODO: move to using part.
-  faketorio.add_default_setting("todolist-show-minimized", true)
-  faketorio.add_default_setting("todolist-show-log", false)
-
   return faketorio.world
 end
 
