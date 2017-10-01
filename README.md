@@ -39,6 +39,14 @@ This is no real magic. It basically provides a serpent instance that you can mak
 
 ### settings
 
+## Test Frameowrk integrations
+
+This chapter describes how to integrate `faketorio` into your favorite unit testing framework.
+
+### Busted
+
+If you use busted (like me) integrating faketorio is as easy as requiring `faketorio_busted` instead of just `faketorio`.
+Then for initializing the world just call `faketorio.initialize_world_busted()`. This will set up `_G` with all the needed values to make your test believe it is actually running in Faktorio.
 
 ## Credits
 
