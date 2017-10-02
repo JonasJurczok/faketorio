@@ -3,6 +3,7 @@
 
 [![Travis](https://img.shields.io/travis/JonasJurczok/faketorio.svg)](https://travis-ci.org/JonasJurczok/faketorio)
 [![Coveralls](https://img.shields.io/coveralls/JonasJurczok/faketorio.svg)](https://coveralls.io/github/JonasJurczok/faketorio)
+[![license](https://img.shields.io/github/license/jonasjurczok/faketorio.svg)](https://opensource.org/licenses/MIT)
 
 Support library for automated testing of Factorio mods
 
