@@ -1,5 +1,5 @@
 # Faketorio
-![Logo][img/faketorio.jpg]
+![Logo](faketorio.jpg)
 
 [![Travis](https://img.shields.io/travis/JonasJurczok/faketorio.svg)](https://travis-ci.org/JonasJurczok/faketorio)
 [![Coveralls](https://img.shields.io/coveralls/JonasJurczok/faketorio.svg)](https://coveralls.io/github/JonasJurczok/faketorio)
