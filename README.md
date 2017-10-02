@@ -1,9 +1,10 @@
 # Faketorio
-Support library for automated testing of Factorio mods
-
+![Logo][img/faketorio.jpg]
 
 [![Travis](https://img.shields.io/travis/JonasJurczok/faketorio.svg)](https://travis-ci.org/JonasJurczok/faketorio)
 [![Coveralls](https://img.shields.io/coveralls/JonasJurczok/faketorio.svg)](https://coveralls.io/github/JonasJurczok/faketorio)
+
+Support library for automated testing of Factorio mods
 
 ## Purpose
 The problem with modding in Factorio (or any other script language based modding environment) is testing.
