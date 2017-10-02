@@ -10,6 +10,11 @@ before_install:
   - sudo luarocks install serpent
   - sudo luarocks install busted
   - sudo luarocks install luacheck
+  - sudo luarocks install luacov
+  - sudo luarocks install luacov-coveralls
 
 script:
   - ./build.sh
+
+after_success:
+  - luacov-coveralls -t $COVERALLS_TOKEN
