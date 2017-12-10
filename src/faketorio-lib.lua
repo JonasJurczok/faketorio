@@ -6,9 +6,6 @@ require("faketorio-helper")
 require("faketorio-clean")
 require("faketorio-assemble")
 
-function faketorio.assemble()
-end
-
 function faketorio.execute()
     local args = faketorio.parse_arguments()
 

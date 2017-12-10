@@ -19,9 +19,14 @@ describe("Test the assemble functionality", function()
         local file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
+
+        local file = io.open("info.json", "w")
+        file:write("asdasd")
+        file:close()
     end)
 
     teardown(function()
+        os.remove("info.json")
         faketorio.delete_dir("locale")
         faketorio.delete_dir("src/for_test")
         faketorio.clean()
@@ -68,5 +73,12 @@ describe("Test the assemble functionality", function()
             print("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
+    end)
+
+    it("should collect info.json", function()
+
+        faketorio.assemble()
+
+        assert.is_Truthy(faketorio.lfs.attributes("target/info.json"))
     end)
 end)

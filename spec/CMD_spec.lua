@@ -1,5 +1,6 @@
 describe("Faketorio command line usage", function()
 
+    -- TODO: what do I actually want to test here?
     it("should accept the run argument.", function()
         _G.arg = {[0] = "faketorio.lua", "run" }
         require("faketorio")
