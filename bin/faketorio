@@ -1,0 +1,3 @@
+#!/usr/bin/env lua
+-- Faketorio command-line runner
+require 'faketorio'
