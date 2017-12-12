@@ -46,3 +46,16 @@ function faketorio.copy_file(path_src, path_dst)
         ltn12.sink.file(assert(io.open(path_dst, "wb")))
     )
 end
+
+function faketorio.read_file(path)
+    local f = assert(io.open(path, "r"))
+    local content = f:read("*all")
+    f:close()
+
+    return content
+end
+
+function faketorio.get_mod_info()
+    local json = require("json")
+    return json.decode(faketorio.read_file("info.json"))
+end

@@ -1,4 +1,4 @@
-describe("Test the assemble functionality", function()
+describe("Test the assemble functionality #assemble", function()
     setup(function()
         require("faketorio-lib")
 
@@ -20,13 +20,15 @@ describe("Test the assemble functionality", function()
         file:write("asdasd")
         file:close()
 
-        local file = io.open("info.json", "w")
+        local file = io.open("control.lua", "w")
         file:write("asdasd")
         file:close()
+
+        faketorio.verbose = true
     end)
 
     teardown(function()
-        os.remove("info.json")
+        os.remove("control.lua")
         faketorio.delete_dir("locale")
         faketorio.delete_dir("src/for_test")
         faketorio.clean()
@@ -57,28 +59,18 @@ describe("Test the assemble functionality", function()
         faketorio.assemble()
 
         for _, file in pairs(busted.collect_file_names("src")) do
-            file = string.gsub(file, "src", "target")
+            file = string.gsub(file, "src", "target/Faketorio-test-mod_0.1.0")
             print("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
-
-    end)
-
-    it("should collect all locale file", function()
-
-        faketorio.assemble()
 
         for _, file in pairs(busted.collect_file_names("locale")) do
-            file = "target/"..file
+            file = "target/Faketorio-test-mod_0.1.0/"..file
             print("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
-    end)
 
-    it("should collect info.json", function()
-
-        faketorio.assemble()
-
-        assert.is_Truthy(faketorio.lfs.attributes("target/info.json"))
+        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/info.json"))
+        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/control.lua"))
     end)
 end)

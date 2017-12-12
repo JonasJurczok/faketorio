@@ -1,4 +1,4 @@
-describe("Faketorio command line usage", function()
+describe("Faketorio command line usage #cmd", function()
 
     -- TODO: what do I actually want to test here?
     it("should accept the run argument.", function()

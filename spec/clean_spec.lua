@@ -1,4 +1,4 @@
-describe("Test the clean command", function()
+describe("Test the clean command #clean", function()
     setup(function()
         require("faketorio-lib")
     end)
