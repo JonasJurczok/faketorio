@@ -24,7 +24,7 @@ describe("Test the clean command #clean", function()
 
         faketorio.clean()
 
-        local attr = faketorio.lfs.attributes("target")
+        attr = faketorio.lfs.attributes("target")
         assert.is_Falsy(attr)
     end)
 end)

@@ -12,15 +12,15 @@ describe("Test the assemble functionality #assemble", function()
         faketorio.lfs.mkdir("locale/de")
         faketorio.lfs.mkdir("locale/en")
 
-        local file = io.open("locale/de/blub.cfg", "w")
+        file = io.open("locale/de/blub.cfg", "w")
         file:write("asdasd")
         file:close()
 
-        local file = io.open("locale/en/blub.cfg", "w")
+        file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
 
-        local file = io.open("control.lua", "w")
+        file = io.open("control.lua", "w")
         file:write("asdasd")
         file:close()
 
