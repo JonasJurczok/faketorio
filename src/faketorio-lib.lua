@@ -27,12 +27,15 @@ function faketorio.execute()
 
     if (args.test) then
         -- run tests
+        -- TODO: implement test mode
         faketorio.log("Running test mode")
     elseif (args.run) then
         -- run
+        -- TODO: implement running the mod (1)
         faketorio.log("Running mod")
     elseif (args.build) then
         -- execute build
+        -- TODO: implement assembling the mod (2)
         faketorio.log("Packaging mod")
     end
 end

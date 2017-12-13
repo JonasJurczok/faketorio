@@ -47,3 +47,5 @@ luac.out
 target/
 *.rock
 *.rockspec
+
+.faketorio
