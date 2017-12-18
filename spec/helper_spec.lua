@@ -9,13 +9,13 @@ describe("Test the helper methods #helper", function()
 
     it("should read config if file is present.", function()
         local file = io.open(".faketorio", "w")
-        file:write("factorio_run_path = D:\\Spiele\\steamapps\\common\\Factorio\\bin\\x64\\factorio.exe\n")
+        file:write("factorio_run_path = D:\\Spiele\\Factorio\\bin\\x64\\factorio.exe\n")
         file:write("factorio_mod_path = C:\\Users\\jonas\\AppData\\Roaming\\Factorio\\mods\\n")
         file:close()
 
         faketorio.load_config()
 
-        assert.are.equals("D:\\Spiele\\steamapps\\common\\Factorio\\bin\\x64\\factorio.exe", faketorio.factorio_run_path)
+        assert.are.equals("D:\\Spiele\\Factorio\\bin\\x64\\factorio.exe", faketorio.factorio_run_path)
         assert.are.equals("C:\\Users\\jonas\\AppData\\Roaming\\Factorio\\mods", faketorio.factorio_mod_path)
 
     end)
