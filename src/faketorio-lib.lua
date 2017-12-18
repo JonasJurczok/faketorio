@@ -30,9 +30,9 @@ function faketorio.execute()
         -- TODO: implement test mode
         faketorio.log("Running test mode")
     elseif (args.run) then
-        -- run
-        -- TODO: implement running the mod (1)
         faketorio.log("Running mod")
+        faketorio.load_config()
+        faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path)
     elseif (args.build) then
         -- execute build
         -- TODO: implement assembling the mod (2)

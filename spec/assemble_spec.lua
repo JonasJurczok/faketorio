@@ -56,6 +56,8 @@ describe("Test the assemble functionality #assemble", function()
     it("should collect all lua scripts with their subfolders from src.", function()
         faketorio.assemble()
 
+        assert.assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
+
         for _, file in pairs(busted.collect_file_names("src")) do
             file = string.gsub(file, "src", "target/Faketorio-test-mod_0.1.0")
             faketorio.log("Verifying file ["..file.."].")

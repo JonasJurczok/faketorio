@@ -18,4 +18,7 @@ function faketorio.assemble()
     faketorio.copy_directory("locale", folder.."/locale")
     faketorio.copy_file("info.json", folder.."/info.json")
     faketorio.copy_file("control.lua", folder.."/control.lua")
+
+    -- TODO: find better name
+    faketorio.output_folder = folder
 end
