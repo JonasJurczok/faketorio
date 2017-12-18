@@ -1,5 +1,5 @@
 describe("Test the clean command #clean", function()
-    setup(function()
+    lazy_setup(function()
         require("faketorio-lib")
     end)
 

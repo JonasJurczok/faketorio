@@ -61,5 +61,24 @@ function faketorio.get_mod_info()
 end
 
 function faketorio.load_config()
+    local content = faketorio.read_file(".faketorio")
 
+    local tea = require("teateatea")
+    local cfg = tea.kvpack(content, "=", "\n", true, true, true)
+
+    for key, value in pairs(cfg) do
+        faketorio[key] = value
+    end
+end
+
+function faketorio.log(message)
+    if (not faketorio.verbose) then
+        return
+    end
+
+    if (type(message) == "string" or message == nil) then
+        print (message)
+    else
+        require"pl.pretty".dump(message)
+    end
 end

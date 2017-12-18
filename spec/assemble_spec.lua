@@ -1,5 +1,5 @@
 describe("Test the assemble functionality #assemble", function()
-    setup(function()
+    lazy_setup(function()
         require("faketorio-lib")
 
         faketorio.lfs.mkdir("src/for_test")
@@ -23,11 +23,9 @@ describe("Test the assemble functionality #assemble", function()
         file = io.open("control.lua", "w")
         file:write("asdasd")
         file:close()
-
-        faketorio.verbose = true
     end)
 
-    teardown(function()
+    lazy_teardown(function()
         os.remove("control.lua")
         faketorio.delete_dir("locale")
         faketorio.delete_dir("src/for_test")
@@ -60,13 +58,13 @@ describe("Test the assemble functionality #assemble", function()
 
         for _, file in pairs(busted.collect_file_names("src")) do
             file = string.gsub(file, "src", "target/Faketorio-test-mod_0.1.0")
-            print("Verifying file ["..file.."].")
+            faketorio.log("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
 
         for _, file in pairs(busted.collect_file_names("locale")) do
             file = "target/Faketorio-test-mod_0.1.0/"..file
-            print("Verifying file ["..file.."].")
+            faketorio.log("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
 

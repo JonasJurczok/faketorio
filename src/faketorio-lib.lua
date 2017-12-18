@@ -39,15 +39,3 @@ function faketorio.execute()
         faketorio.log("Packaging mod")
     end
 end
-
-function faketorio.log(message)
-    if (not faketorio.verbose) then
-        return
-    end
-
-    if (type(message) == "string" or message == nil) then
-        print (message)
-    else
-        require"pl.pretty".dump(message)
-    end
-end
