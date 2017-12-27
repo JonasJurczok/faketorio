@@ -61,12 +61,14 @@ function faketorio.get_mod_info()
 end
 
 function faketorio.load_config()
+    faketorio.log("Loading .faketorio config.")
     local content = faketorio.read_file(".faketorio")
 
     local tea = require("teateatea")
     local cfg = tea.kvpack(content, "=", "\n", true, true, true)
 
     for key, value in pairs(cfg) do
+        faketorio.log(string.format("Setting [%s] to [%s]", key, value))
         faketorio[key] = value
     end
 end

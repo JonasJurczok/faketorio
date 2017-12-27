@@ -22,7 +22,9 @@ function faketorio.execute()
     if (args.clean) then
         return
     end
-    -- always assemble the mod
+
+    -- allways assemble and load the config
+    faketorio.load_config()
     faketorio.assemble()
 
     if (args.test) then
@@ -31,9 +33,16 @@ function faketorio.execute()
         faketorio.log("Running test mode")
     elseif (args.run) then
         faketorio.log("Running mod")
-        faketorio.load_config()
-        faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path)
-        os.execute(faketorio.factorio_run_path)
+        faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
+
+        -- TODO: add option to provide an existing savegame?
+        local map = string.format("%s/maps/%s", args.path, os.date("%Y-%m-%d--%H-%M-%S", os.time()))
+        local command = string.format("%s %s %s", faketorio.factorio_run_path, "%s", map)
+
+        faketorio.log("Prepared command [" .. command .. "].")
+
+        os.execute(string.format(command, "--create"))
+        os.execute(string.format(command, "--load-game"))
     elseif (args.build) then
         -- execute build
         -- TODO: implement assembling the mod (2)

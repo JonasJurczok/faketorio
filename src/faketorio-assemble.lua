@@ -7,7 +7,8 @@ function faketorio.assemble()
     -- TODO: let user add more directories/files
 
     local info = faketorio.get_mod_info()
-    local folder = "target/"..info.name.."_"..info.version
+    faketorio.output_name = info.name.."_"..info.version
+    local folder = "target/" .. faketorio.output_name
 
     faketorio.log("Assembling mod in folder ["..folder.."].")
 
