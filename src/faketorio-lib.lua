@@ -33,6 +33,7 @@ function faketorio.execute()
         faketorio.log("Running mod")
         faketorio.load_config()
         faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path)
+        os.execute(faketorio.factorio_run_path)
     elseif (args.build) then
         -- execute build
         -- TODO: implement assembling the mod (2)
