@@ -1,12 +1,4 @@
--- local factorio_dir = "D:\Spiele\steamapps\common\Factorio\bin\x64"
--- local factorio_exe = factorio_dir .. "\factorio.exe"
--- local factorio_mod_dir = "C:\Users\jonas\AppData\Roaming\Factorio\mods"
-
--- depends on:
--- argparse : https://github.com/mpeterv/argparse
--- luafilesystem : http://keplerproject.github.io/luafilesystem/manual.html
-
-require("faketorio-lib")
+require("faketorio.lib")
 
 function faketorio.parse_arguments()
     local argparse = require("argparse")

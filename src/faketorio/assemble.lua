@@ -1,6 +1,6 @@
 if not faketorio then faketorio = {} end
 
-require("faketorio-helper")
+require("faketorio.helper")
 
 function faketorio.assemble()
     -- TODO: add more defaults (settings dat files)
@@ -18,7 +18,6 @@ function faketorio.assemble()
     faketorio.copy_directory("src", folder)
     faketorio.copy_directory("locale", folder.."/locale")
     faketorio.copy_file("info.json", folder.."/info.json")
-    faketorio.copy_file("control.lua", folder.."/control.lua")
 
     -- TODO: find better name
     faketorio.output_folder = folder

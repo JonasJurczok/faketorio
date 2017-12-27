@@ -1,6 +1,6 @@
 describe("Test the helper methods #helper", function()
     lazy_setup(function()
-        require("faketorio-helper")
+        require("faketorio.helper")
         os.remove(".faketorio")
     end)
 

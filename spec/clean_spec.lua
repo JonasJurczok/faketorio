@@ -1,6 +1,6 @@
 describe("Test the clean command #clean", function()
     lazy_setup(function()
-        require("faketorio-lib")
+        require("faketorio.lib")
     end)
 
     it("should remove an existing folder.", function()

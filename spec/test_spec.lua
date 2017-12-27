@@ -1,12 +1,8 @@
-describe("Test the assemble functionality #assemble", function()
+describe("Test the test command #test", function()
     lazy_setup(function()
         require("faketorio.lib")
 
-        faketorio.lfs.mkdir("src/for_test")
-
-        local file = io.open("src/for_test/blub.lua", "w")
-        file:write("asdasd")
-        file:close()
+        faketorio.lfs.mkdir("spec/for_test")
 
         faketorio.lfs.mkdir("locale")
         faketorio.lfs.mkdir("locale/de")
@@ -19,13 +15,13 @@ describe("Test the assemble functionality #assemble", function()
         file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
-
     end)
 
     lazy_teardown(function()
+        os.remove(".faketorio")
         faketorio.delete_dir("locale")
-        faketorio.delete_dir("src/for_test")
-        faketorio.clean()
+        faketorio.delete_dir("spec/for_test")
+        --faketorio.clean()
     end)
 
     if not busted then busted = {} end
@@ -49,23 +45,19 @@ describe("Test the assemble functionality #assemble", function()
         return result
     end
 
-    it("should collect all lua scripts with their subfolders from src.", function()
+    it("should copy all test infra files to the target folder", function()
+        local file = io.open(".faketorio", "w")
+        file:write("faketorio_path = src\n")
+        file:close()
+
+        faketorio.load_config()
         faketorio.assemble()
+        faketorio.copy_test_infrastructure()
 
-        assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
-
-        for _, file in pairs(busted.collect_file_names("src")) do
-            file = string.gsub(file, "src", "target/Faketorio-test-mod_0.1.0")
-            faketorio.log("Verifying file ["..file.."].")
+        for _, file in pairs(busted.collect_file_names("src/ingame")) do
+            file = string.gsub(file, "src/ingame", "target/Faketorio-test-mod_0.1.0/faketorio")
+            print("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
-
-        for _, file in pairs(busted.collect_file_names("locale")) do
-            file = "target/Faketorio-test-mod_0.1.0/"..file
-            faketorio.log("Verifying file ["..file.."].")
-            assert.is_Truthy(faketorio.lfs.attributes(file))
-        end
-
-        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/info.json"))
     end)
 end)

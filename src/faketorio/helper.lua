@@ -56,7 +56,7 @@ function faketorio.read_file(path)
 end
 
 function faketorio.get_mod_info()
-    local json = require("json")
+    local json = require("faketorio.json")
     return json.decode(faketorio.read_file("info.json"))
 end
 
