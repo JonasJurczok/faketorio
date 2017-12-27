@@ -4,3 +4,7 @@ function faketorio.copy_test_infrastructure()
     local dest = faketorio.output_folder.."/faketorio"
     faketorio.copy_directory(src, dest)
 end
+
+function faketorio.copy_tests()
+    faketorio.copy_directory("spec", faketorio.output_folder.."/faketorio", "feature")
+end

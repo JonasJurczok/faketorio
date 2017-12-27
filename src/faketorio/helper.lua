@@ -20,7 +20,7 @@ function faketorio.delete_dir(directory)
     faketorio.lfs.rmdir(directory)
 end
 
-function faketorio.copy_directory(src, dest)
+function faketorio.copy_directory(src, dest, pattern)
     faketorio.log("Copying directory ["..src.."].")
     faketorio.lfs.mkdir(dest)
 
@@ -31,8 +31,11 @@ function faketorio.copy_directory(src, dest)
             local mode = faketorio.lfs.attributes(src_path, "mode")
 
             if mode == "file" then
-                faketorio.log("Copying file [".. src_path .."].")
-                faketorio.copy_file(src_path, dest_path)
+
+                if (pattern == nil or string.find(file, pattern)) then
+                    faketorio.log("Copying file [".. src_path .."].")
+                    faketorio.copy_file(src_path, dest_path)
+                end
             elseif mode == "directory" then
                 faketorio.copy_directory(src_path, dest_path)
             end

@@ -2,26 +2,26 @@ describe("Test the test command #test", function()
     lazy_setup(function()
         require("faketorio.lib")
 
-        faketorio.lfs.mkdir("spec/for_test")
-
         faketorio.lfs.mkdir("locale")
         faketorio.lfs.mkdir("locale/de")
         faketorio.lfs.mkdir("locale/en")
 
-        file = io.open("locale/de/blub.cfg", "w")
+        local file = io.open("locale/de/blub.cfg", "w")
         file:write("asdasd")
         file:close()
 
         file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
+
+        faketorio.assemble()
     end)
 
     lazy_teardown(function()
         os.remove(".faketorio")
+        os.remove("spec/busted_feature.lua")
         faketorio.delete_dir("locale")
-        faketorio.delete_dir("spec/for_test")
-        --faketorio.clean()
+        faketorio.clean()
     end)
 
     if not busted then busted = {} end
@@ -46,12 +46,11 @@ describe("Test the test command #test", function()
     end
 
     it("should copy all test infra files to the target folder", function()
-        local file = io.open(".faketorio", "w")
-        file:write("faketorio_path = src\n")
-        file:close()
+        local config = io.open(".faketorio", "w")
+        config:write("faketorio_path = src\n")
+        config:close()
 
         faketorio.load_config()
-        faketorio.assemble()
         faketorio.copy_test_infrastructure()
 
         for _, file in pairs(busted.collect_file_names("src/ingame")) do
@@ -59,5 +58,19 @@ describe("Test the test command #test", function()
             print("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
+    end)
+
+    it("should copy all tests to the target folder", function()
+        local file = io.open("spec/busted_feature.lua", "w")
+        file:write("asdasd")
+        file:close()
+
+        faketorio.copy_tests()
+
+        file = "target/Faketorio-test-mod_0.1.0/faketorio/busted_feature.lua"
+        assert.is_Truthy(faketorio.lfs.attributes(file))
+
+        file = "target/Faketorio-test-mod_0.1.0/faketorio/clean_spec.lua"
+        assert.is_Falsy(faketorio.lfs.attributes(file))
     end)
 end)

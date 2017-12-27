@@ -34,7 +34,8 @@ build = {
         ["faketorio.clean"] = "src/faketorio/clean.lua",
         ["faketorio.helper"] = "src/faketorio/helper.lua",
         ["faketorio.test"] = "src/faketorio/test.lua",
-        ["faketorio.ingame.runner"] = "src/ingame/faketorio.lua",
+        ["faketorio.ingame.faketorio"] = "src/ingame/faketorio.lua",
+        ["faketorio.ingame.functions"] = "src/ingame/functions.lua",
         ["faketorio.json"] = "src/faketorio/json.lua",
     },
     install = {
