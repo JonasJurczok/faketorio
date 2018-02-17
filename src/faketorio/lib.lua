@@ -32,10 +32,8 @@ function faketorio.execute()
         -- run tests
         faketorio.log("Running test mode")
 
-        -- copy test infrastructure files
         faketorio.copy_test_infrastructure()
-
-        -- copy tests
+        faketorio.copy_tests()
 
         -- integrate tests with mod
 

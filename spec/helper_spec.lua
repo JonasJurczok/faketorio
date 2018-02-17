@@ -1,11 +1,11 @@
 describe("Test the helper methods #helper", function()
     lazy_setup(function()
         require("faketorio.helper")
-        os.remove(".faketorio")
+        os.remove(os.getenv("HOME") .. "/.faketorio")
     end)
 
     after_each(function()
-        os.remove(".faketorio")
+        os.remove(os.getenv("HOME") .. "/.faketorio")
     end)
 
     it("should fail to load config file if not present.", function()
@@ -13,7 +13,7 @@ describe("Test the helper methods #helper", function()
     end)
 
     it("should read config if file is present.", function()
-        local file = io.open(".faketorio", "w")
+        local file = io.open(os.getenv("HOME") .. "/.faketorio", "w")
         file:write("factorio_run_path = D:\\Spiele\\Factorio\\bin\\x64\\factorio.exe\n")
         file:write("factorio_mod_path = C:\\Users\\jonas\\AppData\\Roaming\\Factorio\\mods")
         file:close()

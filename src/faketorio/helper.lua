@@ -65,7 +65,8 @@ end
 
 function faketorio.load_config()
     faketorio.log("Loading .faketorio config.")
-    local content = faketorio.read_file(".faketorio")
+    -- TODO: add parameter to change config location
+    local content = faketorio.read_file(os.getenv("HOME") .. "/.faketorio")
 
     local tea = require("teateatea")
     local cfg = tea.kvpack(content, "=", "\n", true, true, true)
