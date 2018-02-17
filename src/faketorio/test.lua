@@ -19,6 +19,7 @@ function faketorio.integrate_tests()
 
     for file in faketorio.lfs.dir(faketorio.output_folder .. "/faketorio/features") do
         if (string.find(file, "_feature.lua")) then
+            file = string.sub(file, 1, -5)
             faketorio.log("Integrating test file [" .. file .. "].")
             control:write("\nrequire(\"faketorio.features." .. file .. "\")\n")
         end

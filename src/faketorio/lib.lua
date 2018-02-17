@@ -34,8 +34,7 @@ function faketorio.execute()
 
         faketorio.copy_test_infrastructure()
         faketorio.copy_tests()
-
-        -- integrate tests with mod
+        faketorio.integrate_tests()
 
         faketorio.run(args.path)
     elseif (args.run) then

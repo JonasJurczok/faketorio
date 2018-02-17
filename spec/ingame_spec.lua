@@ -82,7 +82,7 @@ describe("Test feature/scenario registration #ingame", function()
 
         local contentIndex = string.find(control, "test content")
         local runnerIndex = string.find(control, "require%(\"faketorio.core\"%)")
-        local featureIndex = string.find(control, "require%(\"faketorio.features.dummy_feature.lua\"%)")
+        local featureIndex = string.find(control, "require%(\"faketorio.features.dummy_feature\"%)")
         assert.is_true(contentIndex > 0)
         assert.is_true(runnerIndex > contentIndex)
         assert.is_true(featureIndex > runnerIndex)
