@@ -11,6 +11,9 @@ function faketorio.parse_arguments()
     parser:command("run",
         "Run the game with the current version of the mod.",
         "This command will assemble the mod, copy all data to the factorio mod dir and then start Factorio.")
+    parser:command("copy",
+        "Copy the mod to the factorio mod directory without running factorio or integrating tests.",
+        "This is intended for when you already have factorio running and just want to quickly iterate without changing translations etc.")
     parser:command("test",
         "Run all your tests in Factorio.",
         "Run the game with the current version of the mod and execute all tests as soon as you are in game.")

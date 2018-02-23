@@ -39,6 +39,10 @@ function faketorio.execute()
         faketorio.run(args.path)
     elseif (args.run) then
         faketorio.run(args.path)
+    elseif (args.copy) then
+        faketorio.log("Copying mod to Factorio mod folder...")
+        faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
+        faketorio.log("Copying finished.")
     elseif (args.build) then
         -- execute build
         -- TODO: implement assembling the mod (2)
