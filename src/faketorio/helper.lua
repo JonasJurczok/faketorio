@@ -42,7 +42,7 @@ function faketorio.copy_directory(src, dest, pattern)
 end
 
 function faketorio.copy_file(path_src, path_dst)
-    local source = assert(io.open(path, "rb"))
+    local source = assert(io.open(path_src, "rb"))
     local content = source:read("*all")
     source:close()
 
