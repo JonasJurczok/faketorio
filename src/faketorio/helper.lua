@@ -1,7 +1,5 @@
 if not faketorio then faketorio = {} end
 
-require("ltn12")
-
 function faketorio.delete_dir(directory)
     -- recursive delete folder and files
     for file in faketorio.lfs.dir(directory) do
@@ -44,10 +42,13 @@ function faketorio.copy_directory(src, dest, pattern)
 end
 
 function faketorio.copy_file(path_src, path_dst)
-    ltn12.pump.all(
-        ltn12.source.file(assert(io.open(path_src, "rb"))),
-        ltn12.sink.file(assert(io.open(path_dst, "wb")))
-    )
+    local source = assert(io.open(path, "rb"))
+    local content = source:read("*all")
+    source:close()
+
+    local target = assert(io.open(path_dst, "wb"))
+    target:write(content)
+    target:close()
 end
 
 function faketorio.read_file(path)
