@@ -7,6 +7,7 @@
 -- under the terms of the MIT license. See LICENSE for details.
 --
 
+-- TODO: find proper library
 local json = { _version = "0.1.0" }
 
 -------------------------------------------------------------------------------
