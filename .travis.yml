@@ -12,7 +12,7 @@ before_install:
   - sudo luarocks install luacheck
   - sudo luarocks install luacov
   - sudo luarocks install luacov-coveralls
-  - sudo luarocks install ltn12
+  - sudo luarocks install --server=http://luarocks.org/dev ltn12
 
 script:
   - ./build.sh
