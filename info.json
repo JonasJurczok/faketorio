@@ -1,0 +1,11 @@
+{
+  "name": "Faketorio-test-mod",
+  "version": "0.1.0",
+  "title": "Faketorio-Test",
+  "author": "Jason Miles",
+  "contact": "jonasjurczok+factorio@gmail.com",
+  "homepage": "https://github.com/JonasJurczok/faketorio",
+  "factorio_version": "0.15",
+  "dependencies": ["base >= 0.15"],
+  "description": "This file is just intended for testing and serves no other purposes."
+}

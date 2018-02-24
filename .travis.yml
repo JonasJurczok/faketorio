@@ -12,6 +12,8 @@ before_install:
   - sudo luarocks install luacheck
   - sudo luarocks install luacov
   - sudo luarocks install luacov-coveralls
+  - sudo luarocks install luafilesystem
+  - sudo luarocks install teateatea
 
 script:
   - ./build.sh

@@ -41,3 +41,11 @@ luac.out
 
 # vim
 *.swp
+
+*.iml
+.idea*
+target/
+*.rock
+*.rockspec
+
+.faketorio
