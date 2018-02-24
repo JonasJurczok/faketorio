@@ -46,7 +46,7 @@ describe("Test the test command #test", function()
     end
 
     it("should copy all test infra files to the target folder", function()
-        local config = io.open(".faketorio", "w")
+        local config = io.open(os.getenv("HOME") .. "/.faketorio", "w")
         config:write("faketorio_path = src\n")
         config:close()
 
@@ -67,10 +67,10 @@ describe("Test the test command #test", function()
 
         faketorio.copy_tests()
 
-        file = "target/Faketorio-test-mod_0.1.0/faketorio/busted_feature.lua"
+        file = "target/Faketorio-test-mod_0.1.0/faketorio/features/busted_feature.lua"
         assert.is_Truthy(faketorio.lfs.attributes(file))
 
-        file = "target/Faketorio-test-mod_0.1.0/faketorio/clean_spec.lua"
+        file = "target/Faketorio-test-mod_0.1.0/faketorio/features/clean_spec.lua"
         assert.is_Falsy(faketorio.lfs.attributes(file))
     end)
 end)

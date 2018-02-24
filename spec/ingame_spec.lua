@@ -2,15 +2,14 @@ describe("Test feature/scenario registration #ingame", function()
     lazy_setup(function()
         require("ingame.functions")
         require("faketorio.test")
-
-        faketorio.lfs = require("lfs")
-        faketorio.delete_dir("target")
-        faketorio.lfs.rmdir("target")
+        require("faketorio.clean")
 
     end)
 
     after_each(function()
+        faketorio.lfs = require("lfs")
         os.remove("src/control.lua")
+        faketorio.clean()
     end)
 
     it("Should register features correctly", function()
@@ -46,7 +45,7 @@ describe("Test feature/scenario registration #ingame", function()
         local fcount = 0
         local scount = 0
 
-        for name, value in pairs(faketorio.features) do
+        for _, value in pairs(faketorio.features) do
             fcount = fcount + 1
             for _ in pairs(value) do
                 scount = scount + 1
