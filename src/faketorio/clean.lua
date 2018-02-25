@@ -6,6 +6,6 @@ function faketorio.clean()
         return
     end
 
-    faketorio.delete_dir("target")
+    faketorio.delete_directory("target")
     faketorio.lfs.rmdir("target")
 end

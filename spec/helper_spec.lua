@@ -25,6 +25,6 @@ describe("Test the helper methods #helper", function()
     end)
 
     it("delete dir should succeed on non existing directory.", function()
-        faketorio.delete_dir("non-existing")
+        faketorio.delete_directory("non-existing")
     end)
 end)

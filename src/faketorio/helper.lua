@@ -1,6 +1,6 @@
 if not faketorio then faketorio = {} end
 
-function faketorio.delete_dir(directory)
+function faketorio.delete_directory(directory)
     if (faketorio.lfs.attributes(directory) == nil) then
         return
     end
@@ -14,7 +14,7 @@ function faketorio.delete_dir(directory)
                 faketorio.log("Removing file ["..path.."].")
                 os.remove(path)
             elseif mode == "directory" then
-                faketorio.delete_dir(path)
+                faketorio.delete_directory(path)
             end
         end
     end
