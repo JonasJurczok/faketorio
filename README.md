@@ -85,23 +85,27 @@ To do this open a terminal (or command line with start -> execute -> cmd on wind
 Now you can execute the faketorio commands to interact with your mod and Factorio.
 
 * `faketorio build` \
+This will simply create a properly named and filled folder in the `target` folder. This is the basis for all
+other commands and will be executed implicitly for you. You can use it to verify the contents of
+your packaged mod before it actually gets packaged.
+* `faketorio clean` \
+This command simply removes the target folder to give you a clean start (if in doubt about the contents and you want to force a regeneration of the mod)
+* `faketorio copy` \
+This command is used to reduce the `develop -> copy mod -> start Factorio -> test -> close Factorio -> develop` cycle.
+If you already have Factorio running this command will replace the mod in the Factorio mods folder with the version that you are currently developing.
+With this you can just click `restart map` in the game and have the newest version of the mod loaded. ATTENTION: changing locales/grafics requires a restart of the game
+as these resources are only loaded on game startup.
+* `faketorio package` \
 This command creates a properly named folder in the target folder that is named according to the Factorio mod naming conventions (ModName_Version). The information
 for this are extracted from your `info.json`. This mod can then be zipped and uploaded to the mod portal (TODO: Zip is done for you).
 * `faketorio run` \
 This command does roughly the same as the `build` command. Except that it also copies the folder to your factorio mod folder and then starts Factorio.
 It will order Factorio to create a new map, load your mod and then run Factorio with that newly generated map. This gives you a clean game to test your mod.
 As Factorio loads mods that are not zipped over mods that are zipped you don't even have to change the version number in your `info.json`.
-* `faketorio copy` \
-This command is used to reduce the `develop -> copy mod -> start Factorio -> test -> close Factorio -> develop` cycle.
-If you already have Factorio running this command will replace the mod in the Factorio mods folder with the version that you are currently developing.
-With this you can just click `restart map` in the game and have the newest version of the mod loaded. ATTENTION: changing locales/grafics requires a restart of the game
-as these resources are only loaded on game startup.
 * `faketorio test` \
 This command works like the run command except that it also adds all your `faketorio feature files` to the mod, enabeling you to run your
 automated tests inside Factorio. Simply wait for Factorio to finish loading and then type `/faketorio` into the debug console ingame.
 ATTENTION: This is not completely implemented yet!!
-* `faketorio clean` \
-This command simply removes the target folder to give you a clean start (if in doubt about the contents and you want to force a regeneration of the mod)
 
 ### Tests
 

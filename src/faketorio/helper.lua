@@ -1,6 +1,10 @@
 if not faketorio then faketorio = {} end
 
-function faketorio.delete_dir(directory)
+function faketorio.delete_directory(directory)
+    if (faketorio.lfs.attributes(directory) == nil) then
+        return
+    end
+
     -- recursive delete folder and files
     for file in faketorio.lfs.dir(directory) do
         if (file ~= "." and file ~= "..") then
@@ -10,7 +14,7 @@ function faketorio.delete_dir(directory)
                 faketorio.log("Removing file ["..path.."].")
                 os.remove(path)
             elseif mode == "directory" then
-                faketorio.delete_dir(path)
+                faketorio.delete_directory(path)
             end
         end
     end
@@ -60,8 +64,8 @@ function faketorio.read_file(path)
 end
 
 function faketorio.get_mod_info()
-    local json = require("faketorio.json")
-    return json.decode(faketorio.read_file("info.json"))
+    local json = require("JSON")
+    return json:decode(faketorio.read_file("info.json"))
 end
 
 function faketorio.load_config()

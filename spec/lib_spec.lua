@@ -1,10 +1,14 @@
 describe("Test the core library functions #lib", function()
     lazy_setup(function()
         require("faketorio.lib")
+        stub(faketorio, "copy_directory")
+        stub(os, "execute")
     end)
 
     lazy_teardown(function()
         faketorio.clean()
+        faketorio.copy_directory:revert()
+        os.execute:revert()
     end)
 
     it("should correctly execute commands", function()
@@ -12,9 +16,6 @@ describe("Test the core library functions #lib", function()
         faketorio.factorio_mod_path = "mod-path"
         faketorio.output_name = "output_name"
         faketorio.factorio_run_path = "run-path"
-
-        stub(faketorio, "copy_directory")
-        stub(os, "execute")
 
         faketorio.run("test")
 

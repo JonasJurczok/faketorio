@@ -32,9 +32,7 @@ return {
   -- all will be included if nothing is listed
   -- (exclude overrules include, do not include
   -- the .lua extension)
-  ['exclude'] = {
-    'src/json'
-  },
+  ['exclude'] = { },
 
 
 }

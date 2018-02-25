@@ -1,13 +1,11 @@
 describe("Test feature/scenario registration #ingame", function()
     lazy_setup(function()
         require("ingame.functions")
-        require("faketorio.test")
-        require("faketorio.clean")
+        require("faketorio.lib")
 
     end)
 
-    after_each(function()
-        faketorio.lfs = require("lfs")
+    lazy_teardown(function()
         os.remove("src/control.lua")
         faketorio.clean()
     end)
@@ -52,39 +50,8 @@ describe("Test feature/scenario registration #ingame", function()
             end
         end
 
-        --require"pl.pretty".dump(features)
-        --print("Found " .. fcount .. " features and " .. scount .. " scenarios.")
-
         assert.are.equals(2, fcount)
         assert.are.equals(6, scount)
     end)
 
-    it("should integrate tests into the mod", function()
-
-        -- copy dummy feature file
-        faketorio.output_folder = "target/test"
-        assert(faketorio.lfs.mkdir("target"))
-        assert(faketorio.lfs.mkdir(faketorio.output_folder))
-        assert(faketorio.lfs.mkdir(faketorio.output_folder .. "/faketorio"))
-        assert(faketorio.lfs.mkdir(faketorio.output_folder .. "/faketorio/features"))
-
-        faketorio.copy_tests()
-
-        -- create fake control.lua
-        local file = io.open(faketorio.output_folder .. "/control.lua", "w")
-        file:write("test content")
-        file:close()
-
-        faketorio.integrate_tests()
-
-        local control = faketorio.read_file("target/test/control.lua")
-
-        local contentIndex = string.find(control, "test content")
-        local runnerIndex = string.find(control, "require%(\"faketorio.core\"%)")
-        local featureIndex = string.find(control, "require%(\"faketorio.features.dummy_feature\"%)")
-        assert.is_true(contentIndex > 0)
-        assert.is_true(runnerIndex > contentIndex)
-        assert.is_true(featureIndex > runnerIndex)
-
-        end)
 end)

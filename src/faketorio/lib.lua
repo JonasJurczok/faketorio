@@ -4,12 +4,10 @@ require("os")
 faketorio.lfs = require("lfs")
 require("faketorio.helper")
 require("faketorio.clean")
-require("faketorio.assemble")
+require("faketorio.build")
 require("faketorio.test")
 
-function faketorio.execute()
-    local args = faketorio.parse_arguments()
-
+function faketorio.execute(args)
     if (args.verbose) then
         faketorio.verbose = true
     else
@@ -21,12 +19,18 @@ function faketorio.execute()
 
     faketorio.clean()
     if (args.clean) then
+        -- explicitly break to make it more clear that nothing else will happen.
         return
     end
 
     -- allways assemble and load the config
     faketorio.load_config()
-    faketorio.assemble()
+    faketorio.build()
+
+    if (args.build) then
+        -- same as for clean
+        return
+    end
 
     if (args.test) then
         -- run tests
@@ -43,9 +47,9 @@ function faketorio.execute()
         faketorio.log("Copying mod to Factorio mod folder...")
         faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
         faketorio.log("Copying finished.")
-    elseif (args.build) then
+    elseif (args.package) then
         -- execute build
-        -- TODO: implement assembling the mod (2)
+        -- TODO: implement packaging the mod (2)
         faketorio.log("Packaging mod")
     end
 end
