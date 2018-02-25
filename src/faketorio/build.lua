@@ -2,7 +2,7 @@ if not faketorio then faketorio = {} end
 
 require("faketorio.helper")
 
-function faketorio.assemble()
+function faketorio.build()
     -- TODO: add more defaults (settings dat files)
     -- TODO: let user add more directories/files
 
@@ -16,7 +16,9 @@ function faketorio.assemble()
     assert(faketorio.lfs.mkdir(folder))
 
     faketorio.copy_directory("src", folder)
-    faketorio.copy_directory("locale", folder.."/locale")
+    if (faketorio.lfs.attributes("locale")) then
+        faketorio.copy_directory("locale", folder.."/locale")
+    end
     faketorio.copy_file("info.json", folder.."/info.json")
 
     -- TODO: find better name

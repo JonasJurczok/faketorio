@@ -1,4 +1,4 @@
-describe("Test the assemble functionality #assemble", function()
+describe("Test the build functionality #build", function()
     lazy_setup(function()
         require("faketorio.lib")
 
@@ -19,13 +19,14 @@ describe("Test the assemble functionality #assemble", function()
         file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
-
+        stub(faketorio, "load_config")
     end)
 
     lazy_teardown(function()
         faketorio.delete_dir("locale")
         faketorio.delete_dir("src/for_test")
         faketorio.clean()
+        faketorio.load_config:revert()
     end)
 
     if not busted then busted = {} end
@@ -49,8 +50,8 @@ describe("Test the assemble functionality #assemble", function()
         return result
     end
 
-    it("should collect all lua scripts with their subfolders from src.", function()
-        faketorio.assemble()
+    it("should collect all lua scripts with their subfolders from src and locale.", function()
+        faketorio.execute({build = true})
 
         assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
 
@@ -68,4 +69,20 @@ describe("Test the assemble functionality #assemble", function()
 
         assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/info.json"))
     end)
+
+    it("should work without an existing locale folder.", function()
+        faketorio.delete_dir("locale")
+        faketorio.execute({build = true})
+
+        assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
+
+        for _, file in pairs(busted.collect_file_names("src")) do
+            file = string.gsub(file, "src", "target/Faketorio-test-mod_0.1.0")
+            faketorio.log("Verifying file ["..file.."].")
+            assert.is_Truthy(faketorio.lfs.attributes(file))
+        end
+
+        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/info.json"))
+    end)
+
 end)

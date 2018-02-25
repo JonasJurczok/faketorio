@@ -1,6 +1,6 @@
 describe("Test the helper methods #helper", function()
     lazy_setup(function()
-        require("faketorio.helper")
+        require("faketorio.lib")
         os.remove(os.getenv("HOME") .. "/.faketorio")
     end)
 
@@ -22,5 +22,9 @@ describe("Test the helper methods #helper", function()
 
         assert.are.equals("D:\\Spiele\\Factorio\\bin\\x64\\factorio.exe", faketorio.factorio_run_path)
         assert.are.equals("C:\\Users\\jonas\\AppData\\Roaming\\Factorio\\mods", faketorio.factorio_mod_path)
+    end)
+
+    it("delete dir should succeed on non existing directory.", function()
+        faketorio.delete_dir("non-existing")
     end)
 end)

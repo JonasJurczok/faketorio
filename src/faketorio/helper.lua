@@ -1,6 +1,10 @@
 if not faketorio then faketorio = {} end
 
 function faketorio.delete_dir(directory)
+    if (faketorio.lfs.attributes(directory) == nil) then
+        return
+    end
+
     -- recursive delete folder and files
     for file in faketorio.lfs.dir(directory) do
         if (file ~= "." and file ~= "..") then
