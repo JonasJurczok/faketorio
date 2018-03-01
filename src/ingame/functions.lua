@@ -3,8 +3,16 @@ if not faketorio then faketorio = {} end
 faketorio.features = {}
 
 function faketorio.run()
-    for _, p in pairs(game.players) do
-        p.print("Faketorio")
+    for feature_name, scenarios in pairs(faketorio.features) do
+        faketorio.print("Starting Feature %s.", { feature_name })
+
+        for scenario_name, scenario in pairs(scenarios) do
+            faketorio.print("Starting Scenario %s.", {scenario_name})
+            scenario()
+            faketorio.print("Finished Scenario %s.", {scenario_name})
+        end
+
+        faketorio.print("Finished Feature %s.", {feature_name})
     end
 end
 

@@ -1,14 +1,14 @@
 describe("Test the test command #test", function()
     lazy_setup(function()
         require("faketorio.lib")
-        stub(faketorio, "run")
+        stub(faketorio, "create_map_and_run_factorio")
     end)
 
     lazy_teardown(function()
         os.remove("spec/busted_feature.lua")
         os.remove("src/control.lua")
         faketorio.clean()
-        faketorio.run:revert()
+        faketorio.create_map_and_run_factorio:revert()
     end)
 
     if not busted then busted = {} end
@@ -35,6 +35,7 @@ describe("Test the test command #test", function()
     it("should copy all test infra files to the target folder", function()
         local config = io.open(os.getenv("HOME") .. "/.faketorio", "w")
         config:write("faketorio_path = src\n")
+        config:write("factorio_mod_path = target\n")
         config:close()
 
         faketorio.execute({test = true, path = "asd"})
@@ -45,7 +46,7 @@ describe("Test the test command #test", function()
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
 
-        assert.stub(faketorio.run).was.called_with("asd")
+        assert.stub(faketorio.create_map_and_run_factorio).was.called_with("asd")
     end)
 
     it("should copy all tests to the target folder", function()

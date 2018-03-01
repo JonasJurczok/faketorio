@@ -54,4 +54,32 @@ describe("Test feature/scenario registration #ingame", function()
         assert.are.equals(6, scount)
     end)
 
+    it("should execute features correctly.", function()
+        faketorio.testcount = 0
+
+        feature("F1", function()
+            scenario("S1", function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+
+            scenario("S2", function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+        end)
+
+        feature("F2", function()
+            scenario("S1", function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+
+            scenario("S2", function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+        end)
+
+        faketorio.run()
+
+        assert.are.equals(4, faketorio.testcount)
+    end)
+
 end)
