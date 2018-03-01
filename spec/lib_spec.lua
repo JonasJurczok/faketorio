@@ -17,7 +17,7 @@ describe("Test the core library functions #lib", function()
         faketorio.output_name = "output_name"
         faketorio.factorio_run_path = "run-path"
 
-        faketorio.run("test")
+        faketorio.create_map_and_run_factorio("test")
 
         assert.stub(faketorio.copy_directory).was.called_with("output", "mod-path/output_name")
         assert.stub(os.execute).was.called(2)

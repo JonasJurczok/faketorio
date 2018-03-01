@@ -40,9 +40,9 @@ function faketorio.execute(args)
         faketorio.copy_tests()
         faketorio.integrate_tests()
 
-        faketorio.run(args.path)
+        faketorio.create_map_and_run_factorio(args.path)
     elseif (args.run) then
-        faketorio.run(args.path)
+        faketorio.create_map_and_run_factorio(args.path)
     elseif (args.copy) then
         faketorio.log("Copying mod to Factorio mod folder...")
         faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
@@ -54,7 +54,7 @@ function faketorio.execute(args)
     end
 end
 
-function faketorio.run(path)
+function faketorio.create_map_and_run_factorio(path)
     faketorio.log("Running mod")
     faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
 
