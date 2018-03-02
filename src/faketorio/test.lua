@@ -1,5 +1,11 @@
 require("faketorio.helper")
 
+function faketorio.prepare_tests()
+    faketorio.copy_test_infrastructure()
+    faketorio.copy_tests()
+    faketorio.integrate_tests()
+end
+
 function faketorio.copy_test_infrastructure()
     -- config has been loaded
     local src = faketorio.faketorio_path.."/ingame"
