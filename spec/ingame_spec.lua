@@ -2,12 +2,12 @@ describe("Test feature/scenario registration #ingame", function()
     lazy_setup(function()
         require("ingame.functions")
         require("faketorio.lib")
-
+        spy.on(faketorio, "print")
     end)
 
     lazy_teardown(function()
-        os.remove("src/control.lua")
         faketorio.clean()
+        faketorio.print:revert()
     end)
 
     it("Should register features correctly", function()
@@ -55,6 +55,7 @@ describe("Test feature/scenario registration #ingame", function()
     end)
 
     it("should execute features correctly.", function()
+
         faketorio.testcount = 0
 
         feature("F1", function()
@@ -82,4 +83,23 @@ describe("Test feature/scenario registration #ingame", function()
         assert.are.equals(4, faketorio.testcount)
     end)
 
+    it("should collect failures correctly.", function()
+        feature("F1", function()
+            scenario("S1", function()
+                -- success
+            end)
+
+        end)
+
+        feature("F2", function()
+            scenario("S1", function()
+                error("Failure")
+            end)
+
+        end)
+
+        faketorio.run()
+
+        assert.are.equals("spec/ingame_spec.lua:96: Failure", faketorio.errors["F2"]["S1"])
+    end)
 end)
