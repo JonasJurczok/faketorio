@@ -36,16 +36,18 @@ function faketorio.execute(args)
         -- run tests
         faketorio.log("Running test mode")
 
-        faketorio.copy_test_infrastructure()
-        faketorio.copy_tests()
-        faketorio.integrate_tests()
+        faketorio.prepare_tests()
 
         faketorio.create_map_and_run_factorio(args.path)
     elseif (args.run) then
         faketorio.create_map_and_run_factorio(args.path)
     elseif (args.copy) then
         faketorio.log("Copying mod to Factorio mod folder...")
-        faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
+
+        faketorio.prepare_tests()
+
+        faketorio.copy_mod_to_factorio_mod_dir()
+
         faketorio.log("Copying finished.")
     elseif (args.package) then
         -- execute build
@@ -54,9 +56,16 @@ function faketorio.execute(args)
     end
 end
 
+function faketorio.copy_mod_to_factorio_mod_dir()
+    assert(faketorio.output_folder, "No output folder found.")
+    assert(faketorio.factorio_mod_path, "Factorio mod directory not configured.")
+    assert(faketorio.output_name, "Mod name not recognized correctly.")
+    faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
+end
+
 function faketorio.create_map_and_run_factorio(path)
     faketorio.log("Running mod")
-    faketorio.copy_directory(faketorio.output_folder, faketorio.factorio_mod_path .. "/" .. faketorio.output_name)
+    faketorio.copy_mod_to_factorio_mod_dir()
 
     local map = string.format("%s/maps/%s", path, os.date("%Y-%m-%d--%H-%M-%S", os.time()))
     local command = string.format("%s %s %s", faketorio.factorio_run_path, "%s", map)
