@@ -6,7 +6,7 @@ describe("Test the copy functionality #copy", function()
         faketorio.lfs.mkdir("locale/de")
         faketorio.lfs.mkdir("locale/en")
 
-        file = io.open("locale/de/blub.cfg", "w")
+        local file = io.open("locale/de/blub.cfg", "w")
         file:write("asdasd")
         file:close()
 
@@ -66,7 +66,7 @@ describe("Test the copy functionality #copy", function()
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
 
-        file = "factorio/Faketorio-test-mod_0.1.0/faketorio/features/dummy_feature.lua"
+        local file = "factorio/Faketorio-test-mod_0.1.0/faketorio/features/dummy_feature.lua"
         assert.is_Truthy(faketorio.lfs.attributes(file))
 
         file = "factorio/Faketorio-test-mod_0.1.0/faketorio/features/clean_spec.lua"
