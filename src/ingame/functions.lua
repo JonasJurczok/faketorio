@@ -71,6 +71,69 @@ function faketorio.count(list)
     return count
 end
 
+function faketorio.click(id)
+    -- get players
+    local player = game.players[1]
+
+    -- search for element
+    local element = assert(faketorio.find_element_by_id(id, player))
+
+    local event = {}
+    event.element = element
+    event.player_index = 1
+    event.button = defines.mouse_button_type.left
+    event.alt = false
+    event.control = false
+    event.shift = false
+
+    script.raise_event(defines.events.on_gui_click, event)
+end
+
+function faketorio.find_element_by_id(id, player)
+
+    faketorio.print("Starting find by id for id [%s] and player [%s].", {id, player.name})
+    local guis = {["top"] = player.gui.top,
+                  ["left"] = player.gui.left,
+                  ["center"] = player.gui.center,
+                  ["goal"] = player.gui.goal}
+
+    for name, gui in pairs(guis) do
+        faketorio.print("Searching in gui [%s].", {name})
+        for _, child in pairs(gui.children) do
+            faketorio.print("Searching in gui element [%s/%s].", {name, child.name})
+            local element = faketorio.do_find_element_by_id(id, child)
+            if (element ~= nil) then
+                return element
+            end
+        end
+    end
+
+    error(string.format("Could not find element with id [%s] for player [%s].", id, player.name))
+end
+
+function faketorio.do_find_element_by_id(id, element)
+
+    if (element.name == id) then
+        faketorio.print("Found element with id [%s].", {id})
+        return element
+    end
+
+    -- explicitly check for this problem as I do not trust the factorio internals here
+    if (element.children == nil) then
+        faketorio.print("Element has no children.")
+        return nil
+    end
+
+    for _, child in ipairs(element.children) do
+        faketorio.print("Searching in gui element [%s/%s].", { element.name, child.name})
+        local result = faketorio.do_find_element_by_id(id, child)
+        if (result ~= nil) then
+            return result
+        end
+    end
+end
+
+
 function feature(name, func)
     faketorio.print("Registering feature [%s].", {name})
     faketorio.features[name] = {}
@@ -91,6 +154,7 @@ function faketorio.print(message, args)
     if (game) then
         for _, p in pairs(game.players) do
             p.print(message)
+            game.write_file("faketorio.log", message .. "\n", true)
         end
     else
         print(message)
