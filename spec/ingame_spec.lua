@@ -2,7 +2,7 @@ describe("Test feature/scenario registration #ingame", function()
     lazy_setup(function()
         require("ingame.functions")
         require("faketorio.lib")
-        spy.on(faketorio, "print")
+        stub(faketorio, "print")
     end)
 
     lazy_teardown(function()
@@ -101,5 +101,61 @@ describe("Test feature/scenario registration #ingame", function()
         faketorio.run()
 
         assert.are.equals("spec/ingame_spec.lua:96: Failure", faketorio.errors["F2"]["S1"])
+    end)
+
+    it("should enable clicking on things", function()
+        _G.defines = {
+            mouse_button_type = {
+                left = 1
+            },
+            events = {
+                on_gui_click = 2
+            }
+        }
+        _G.game = {}
+        game.players = {}
+        game.players[1] = {
+            name = "asd",
+            gui = {
+                top = {
+                    children = {
+                        ["someOtherId"] = {
+                            type = "button",
+                            name = "someOtherId",
+                            children = {}
+                        }
+                    }
+                },
+                left = {
+                    children = {
+                        ["someParent"] = {
+                            name = "someParent",
+                            children = {
+                                {
+                                    type = "button",
+                                    name = "testId",
+                                    children = {}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        _G.script = {}
+
+        function script.raise_event(id, event)
+            assert.are.equals(defines.events.on_gui_click, id)
+
+            assert.are.equals("testId", event.element.name)
+            assert.are.equals("button", event.element.type)
+            assert.are.equals(1, event.player_index)
+            assert.are.equals(defines.mouse_button_type.left, event.button)
+            assert.are.equals(false, event.alt)
+            assert.are.equals(false, event.control)
+            assert.are.equals(false, event.shift)
+        end
+
+        faketorio.click("testId")
     end)
 end)
