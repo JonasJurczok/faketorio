@@ -106,7 +106,7 @@ It will order Factorio to create a new map, load your mod and then run Factorio 
 As Factorio loads mods that are not zipped over mods that are zipped you don't even have to change the version number in your `info.json`.
 * `faketorio test` \
 This command works like the run command except that it also adds all your `faketorio feature files` to the mod, enabeling you to run your
-automated tests inside Factorio. Simply wait for Factorio to finish loading and then type `/faketorio` into the debug console ingame.
+automated tests inside Factorio. Simply wait for Factorio to finish loading and then type `/faketorio` into the [debug console](https://wiki.factorio.com/Console) ingame.
 ATTENTION: This is not completely implemented yet!!
 
 ### Tests
@@ -135,6 +135,13 @@ As described in `Folder Structure` you can create feature files in your `spec` f
 
 In the scenarios you can basically write normal lua code to interact with your mod. Faketorio provides you with some additional
 functions that you can use.
+
+#### Running tests ingame
+To run your tests inside of Factorio simply invoke `faketorio test` in a terminal in the mod folder. 
+Faketorio will generate a new map, copy your mod and the tests and starts Factorio.
+
+As soon as you are in game you can open the [debug console](https://wiki.factorio.com/Console) and enter
+`/faketorio`. Simply run the command and all your tests will be executed.
 
 #### Marking tests as success/failure
 
@@ -170,10 +177,10 @@ Run contained 1 features.
 Of course just interacting with the data/tables of your mod is not enough. You also have to be able to mimic player behaviour.
 This is what the following functions are for.
 
-##### faketorio.click(id)
+##### faketorio.click(name)
 
 To interact with your mod you need to be able to click on things ;) This is what the `click` function is for.
-The `id` parameter is the `name` of your [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html). 
+The `name` parameter is the `name` of your [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html). 
 
 Faketorio will search through the four guis (left, top, center, goal) of the **first** player in the players list.
 If an element with the provided name is found it will [raise an event](http://lua-api.factorio.com/latest/LuaBootstrap.html#LuaBootstrap.raise_event)
@@ -181,10 +188,15 @@ for this element.
 
 Currently only left mouse button clicks without modifiers (shift, alt, control) are supported.
 
+##### faketorio.enter_text(name, text)
+This function enters text into a text field. Simply provide a `name` to look for and faketorio
+will replace the `.text` attribute with the provided `text`.
+
 ##### faketorio.find_element_by_id(id, player)
 
 Returns a [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html) with the given `id` for the given `player`.
 Both parameters are mandatory.
+
 
 ##### faketorio.print(message, parameters)
 

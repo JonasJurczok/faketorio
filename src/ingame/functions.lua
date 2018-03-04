@@ -89,6 +89,17 @@ function faketorio.click(id)
     script.raise_event(defines.events.on_gui_click, event)
 end
 
+function faketorio.enter_text(id, text)
+    local player = game.players[1]
+
+    local element = assert(faketorio.find_element_by_id(id, player))
+
+    local error_message = string.format("Element with id [%s] has invalid type [%s].", id, element.type)
+    assert(element.type == "textfield" or element.type == "text-box", error_message)
+
+    element.text = text
+end
+
 function faketorio.find_element_by_id(id, player)
 
     faketorio.print("Starting find by id for id [%s] and player [%s].", {id, player.name})
