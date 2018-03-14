@@ -12,7 +12,7 @@ describe("Test mocks #mocks", function()
     end)
 
     it("should correctly mock a function", function()
-        test = {}
+        local test = {}
         test.get = function()
             return "test"
         end
@@ -33,7 +33,7 @@ describe("Test mocks #mocks", function()
     end)
 
     it("should be possible to have multiple mocks at the same time", function()
-        test = {}
+        local test = {}
         test.get = function()
             return "test"
         end
