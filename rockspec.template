@@ -37,6 +37,7 @@ build = {
         ["faketorio.ingame.core"] = "src/ingame/core.lua",
         ["faketorio.ingame.functions"] = "src/ingame/functions.lua",
         ["faketorio.ingame.logging"] = "src/ingame/logging.lua",
+        ["faketorio.ingame.mocks"] = "src/ingame/mocks.lua",
     },
     install = {
         bin = {
