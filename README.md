@@ -121,11 +121,11 @@ feature("My first feature", function()
     
     scenario("The first scenario", function()
         faketorio.click("todo_maximize_button")
-        faketorio.print("my first test")
+        faketorio.log.info("my first test")
     end)
 
     scenario("The second scenario", function()
-        faketorio.print("Scenario 2")
+        faketorio.log.info("Scenario 2")
     end)
 end)
 ```
@@ -198,14 +198,38 @@ Returns a [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html) w
 Both parameters are mandatory.
 
 
-##### faketorio.print(message, parameters)
+##### faketorio.log.*(message, parameters)
 
-The print function is intended for debug output and if you want to report something to the user while the tests are running.
-This function will print the message to every player in Factorio. Additionally it will be written to the `faketorio.log` file
+The log system functions are intended for debug output and if you want to report something to the user 
+while the tests are running.
+
+The system knows four different log levels. `TRACE`, `DEBUG`, `INFO` and `WARN`. The default log level is `INFO`.
+All messages that are logged with a level lower (read left in the list) as the current log level will be ignored.
+
+Messages passed to the logging system will be printed to every player in Factorio. Additionally it will be written to the `faketorio.log` file
 in your Factorio `script-output` folder in your [application directory](https://wiki.factorio.com/Application_directory).
 
-The `parameters` parameter is a optional array of arbitrary data. If it is provided the `message` will be interpreted as a [format string](http://lua-users.org/wiki/StringLibraryTutorial)
-and the `parameters` will be used as attributes to `string.format()`.
+To create log messages use one of the following functions
+
+```lua
+-- simple logging
+faketorio.log.trace("my test debug message")
+faketorio.log.debug("my test debug message")
+faketorio.log.info("my test debug message")
+faketorio.log.warn("my test debug message")
+
+-- logging with parameter expansion (prints "my test pattern wololo.")
+faketorio.log.trace("my test pattern %s.", {"wololo"})
+faketorio.log.debug("my test pattern %s.", {"wololo"})
+faketorio.log.info("my test pattern %s.", {"wololo"})
+faketorio.log.warn("my test pattern %s.", {"wololo"})
+
+-- to change the current log level and thus limiting the output during your tests use
+faketorio.log.setTrace()
+faketorio.log.setDebug()
+faketorio.log.setInfo()
+faketorio.log.setWarn()
+```
 
 ## Credits
 
