@@ -38,6 +38,8 @@ function faketorio.log.log(level, message, args)
         message = string.format(message, unpack(args))
     end
 
+    message = string.format("%s: %s", level, message)
+
     faketorio.log.print(message)
 end
 

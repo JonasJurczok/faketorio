@@ -16,19 +16,19 @@ describe("Test logging #logging", function()
 
         log.setTrace()
         log.trace("test")
-        assert.stub(faketorio.log.print).was_called_with("test")
+        assert.stub(faketorio.log.print).was_called_with("TRACE: test")
 
         log.setDebug()
         log.debug("test")
-        assert.stub(faketorio.log.print).was_called_with("test")
+        assert.stub(faketorio.log.print).was_called_with("DEBUG: test")
 
         log.setInfo()
         log.info("test")
-        assert.stub(faketorio.log.print).was_called_with("test")
+        assert.stub(faketorio.log.print).was_called_with("INFO: test")
 
         log.setWarn()
         log.warn("test")
-        assert.stub(faketorio.log.print).was_called_with("test")
+        assert.stub(faketorio.log.print).was_called_with("WARN: test")
 
     end)
 
@@ -37,7 +37,7 @@ describe("Test logging #logging", function()
 
         log.setDebug()
         log.debug("%s", {"hello"})
-        assert.stub(faketorio.log.print).was_called_with("hello")
+        assert.stub(faketorio.log.print).was_called_with("DEBUG: hello")
     end)
 
     it("should not print if level does not match.", function()
@@ -45,15 +45,15 @@ describe("Test logging #logging", function()
 
         log.setDebug()
         log.trace("test1")
-        assert.stub(faketorio.log.print).was_not_called_with("test1")
+        assert.stub(faketorio.log.print).was_not_called_with("TRACE: test1")
 
         log.setInfo()
         log.debug("test2")
-        assert.stub(faketorio.log.print).was_not_called_with("test2")
+        assert.stub(faketorio.log.print).was_not_called_with("DEBUG: test2")
 
         log.setWarn()
         log.info("test3")
-        assert.stub(faketorio.log.print).was_not_called_with("test3")
+        assert.stub(faketorio.log.print).was_not_called_with("INFO: test3")
     end)
 
     it("should be possible to switch the level on the fly.", function()
@@ -61,14 +61,14 @@ describe("Test logging #logging", function()
 
         log.setTrace()
         log.trace("test1")
-        assert.stub(faketorio.log.print).was_called_with("test1")
+        assert.stub(faketorio.log.print).was_called_with("TRACE: test1")
 
         log.setInfo()
         log.trace("test2")
-        assert.stub(faketorio.log.print).was_not_called_with("test2")
+        assert.stub(faketorio.log.print).was_not_called_with("TRACE: test2")
 
         log.setTrace()
         log.trace("test3")
-        assert.stub(faketorio.log.print).was_called_with("test3")
+        assert.stub(faketorio.log.print).was_called_with("TRACE: test3")
     end)
 end)
