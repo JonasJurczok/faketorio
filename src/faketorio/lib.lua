@@ -14,8 +14,8 @@ function faketorio.execute(args)
         faketorio.verbose = false
     end
 
-    faketorio.log("Faketorio was started with the following parameters:")
-    faketorio.log(args)
+    faketorio.print_message("Faketorio was started with the following parameters:")
+    faketorio.print_message(args)
 
     faketorio.clean()
     if (args.clean) then
@@ -34,7 +34,7 @@ function faketorio.execute(args)
 
     if (args.test) then
         -- run tests
-        faketorio.log("Running test mode")
+        faketorio.print_message("Running test mode")
 
         faketorio.prepare_tests()
 
@@ -42,17 +42,17 @@ function faketorio.execute(args)
     elseif (args.run) then
         faketorio.create_map_and_run_factorio(args.path)
     elseif (args.copy) then
-        faketorio.log("Copying mod to Factorio mod folder...")
+        faketorio.print_message("Copying mod to Factorio mod folder...")
 
         faketorio.prepare_tests()
 
         faketorio.copy_mod_to_factorio_mod_dir()
 
-        faketorio.log("Copying finished.")
+        faketorio.print_message("Copying finished.")
     elseif (args.package) then
         -- execute build
         -- TODO: implement packaging the mod (2)
-        faketorio.log("Packaging mod")
+        faketorio.print_message("Packaging mod")
     end
 end
 
@@ -64,13 +64,13 @@ function faketorio.copy_mod_to_factorio_mod_dir()
 end
 
 function faketorio.create_map_and_run_factorio(path)
-    faketorio.log("Running mod")
+    faketorio.print_message("Running mod")
     faketorio.copy_mod_to_factorio_mod_dir()
 
     local map = string.format("%s/maps/%s", path, os.date("%Y-%m-%d--%H-%M-%S", os.time()))
     local command = string.format("%s %s %s", faketorio.factorio_run_path, "%s", map)
 
-    faketorio.log("Prepared command [" .. command .. "].")
+    faketorio.print_message("Prepared command [" .. command .. "].")
 
     os.execute(string.format(command, "--create"))
     os.execute(string.format(command, "--load-game"))

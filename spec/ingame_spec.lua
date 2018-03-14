@@ -1,8 +1,9 @@
 describe("Test feature/scenario registration #ingame", function()
     lazy_setup(function()
         require("ingame.functions")
+        require("ingame.logging")
         require("faketorio.lib")
-        stub(faketorio, "print")
+        stub(faketorio.log, "print")
 
         _G.defines = {
             mouse_button_type = {
@@ -48,7 +49,7 @@ describe("Test feature/scenario registration #ingame", function()
 
     lazy_teardown(function()
         faketorio.clean()
-        faketorio.print:revert()
+        faketorio.log.print:revert()
     end)
 
     it("Should register features correctly", function()
@@ -141,7 +142,7 @@ describe("Test feature/scenario registration #ingame", function()
 
         faketorio.run()
 
-        assert.are.equals("spec/ingame_spec.lua:137: Failure", faketorio.errors["F2"]["S1"])
+        assert.are.equals("spec/ingame_spec.lua:138: Failure", faketorio.errors["F2"]["S1"])
     end)
 
     it("should enable clicking on things", function()

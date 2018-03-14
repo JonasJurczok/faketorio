@@ -10,7 +10,7 @@ function faketorio.build()
     faketorio.output_name = info.name.."_"..info.version
     local folder = "target/" .. faketorio.output_name
 
-    faketorio.log("Assembling mod in folder ["..folder.."].")
+    faketorio.print_message("Assembling mod in folder ["..folder.."].")
 
     assert(faketorio.lfs.mkdir("target"))
     assert(faketorio.lfs.mkdir(folder))

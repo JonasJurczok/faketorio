@@ -56,13 +56,13 @@ describe("Test the copy functionality #copy", function()
 
         for _, file in pairs(busted.collect_file_names("src")) do
             file = string.gsub(file, "src", "factorio/Faketorio-test-mod_0.1.0")
-            faketorio.log("Verifying file ["..file.."].")
+            faketorio.print_message("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
 
         for _, file in pairs(busted.collect_file_names("locale")) do
             file = "factorio/Faketorio-test-mod_0.1.0/"..file
-            faketorio.log("Verifying file ["..file.."].")
+            faketorio.print_message("Verifying file ["..file.."].")
             assert.is_Truthy(faketorio.lfs.attributes(file))
         end
 
