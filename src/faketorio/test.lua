@@ -18,7 +18,7 @@ function faketorio.copy_tests()
 end
 
 function faketorio.integrate_tests()
-    faketorio.log("Integrating tests with the mod.")
+    faketorio.print_message("Integrating tests with the mod.")
     local control = io.open(faketorio.output_folder .. "/control.lua", "a")
 
     control:write("\nrequire(\"faketorio.core\")\n")
@@ -26,12 +26,12 @@ function faketorio.integrate_tests()
     for file in faketorio.lfs.dir(faketorio.output_folder .. "/faketorio/features") do
         if (string.find(file, "_feature.lua")) then
             file = string.sub(file, 1, -5)
-            faketorio.log("Integrating test file [" .. file .. "].")
+            faketorio.print_message("Integrating test file [" .. file .. "].")
             control:write("\nrequire(\"faketorio.features." .. file .. "\")\n")
         end
     end
 
     control:close()
-    faketorio.log("Integrating tests finished.")
+    faketorio.print_message("Integrating tests finished.")
 
 end
