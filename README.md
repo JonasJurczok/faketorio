@@ -198,7 +198,7 @@ Returns a [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html) w
 Both parameters are mandatory.
 
 
-##### faketorio.log.*(message, parameters)
+#### logging
 
 The log system functions are intended for debug output and if you want to report something to the user 
 while the tests are running.
@@ -229,6 +229,33 @@ faketorio.log.setTrace()
 faketorio.log.setDebug()
 faketorio.log.setInfo()
 faketorio.log.setWarn()
+```
+
+#### mocks
+Sometimes it is necessary to change the behavior of your mod, pretending certain external events happened.
+One example would be the user modified the mod settings. As the `settings` table is read only for the mod we can just mock
+the result.
+
+Assuming you have a function like this
+```lua
+function myMod.is_setting_enabled(player)
+    return settings.get_player_settings(player)["my-mod-setting"].value
+end
+
+```
+
+we can now change the behavior of that function by mocking it:
+```lua
+local player = ...
+myMod.is_setting_enabled(player) -- returns true (default value)
+
+-- lets create a mock
+when(myMod, "is_setting_enabled"):then_return(false)
+
+myMod.is_setting_enabled(player) -- returns false (the mocked value)
+
+myMod.is_setting_enabled:revert()
+myMod.is_setting_enabled(player) -- returns true again (it calls the original function)
 ```
 
 ## Credits
