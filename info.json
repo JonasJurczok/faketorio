@@ -5,7 +5,7 @@
   "author": "Jason Miles",
   "contact": "jonasjurczok+factorio@gmail.com",
   "homepage": "https://github.com/JonasJurczok/faketorio",
-  "factorio_version": "0.15",
-  "dependencies": ["base >= 0.15"],
+  "factorio_version": "0.16",
+  "dependencies": ["base >= 0.16"],
   "description": "This file is just intended for testing and serves no other purposes."
 }

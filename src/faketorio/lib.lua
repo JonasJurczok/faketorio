@@ -42,10 +42,10 @@ function faketorio.execute(args)
     elseif (args.run) then
         faketorio.create_map_and_run_factorio(args.path)
     elseif (args.copy) then
-        faketorio.print_message("Copying mod to Factorio mod folder...")
 
         faketorio.prepare_tests()
 
+        faketorio.print_message("Copying mod to Factorio mod folder...")
         faketorio.copy_mod_to_factorio_mod_dir()
 
         faketorio.print_message("Copying finished.")
