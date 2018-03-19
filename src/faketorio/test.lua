@@ -1,6 +1,8 @@
 require("faketorio.helper")
 
 function faketorio.prepare_tests()
+    faketorio.print_message("Integrating tests.")
+
     faketorio.copy_test_infrastructure()
     faketorio.copy_tests()
     faketorio.integrate_tests()
