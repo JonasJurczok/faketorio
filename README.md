@@ -20,9 +20,8 @@ Enter Faketorio. The goal is to provide a standard system for running your mod a
 Factorio and then package your mod for release.
 
 ## TODO
-A lot of things are still incomplete. Namely
+Some things are still incomplete. e.g:
 * Actually zipping the mod for upload. Assembling a folder works already, zipping is still missing
-* Running the tests
 
 ## Installation
 
@@ -62,18 +61,19 @@ Faketorio assumes the following structure for your mod files:
 The Factorio specific files (`control.lua`, `data.lua`, `settings.lua`, ...) all go into the source folder without any additional subfolders.
 
 #### .faketorio config file
-Faketorio requires a config file in your home folder (`/home/<USER>/` on Linux systems, TODO: test windows systems).
+Faketorio requires a config file to run. You can specify the location with the `-c` option. If no config path
+is provided faketorio will search for a file named `.faketorio` in the current folder.
 This file has to have three values configured.
 
 ```properties
 factorio_mod_path = /home/jjurczok/.factorio/mods
 factorio_run_path = /home/jjurczok/.local/share/Steam/steamapps/common/Factorio/bin/x64/factorio
 
+# windows based example
+factorio_run_path = D:\Spiele\Factorio\bin\x64\factorio.exe
+
 faketorio_path = /usr/share/lua/5.2/faketorio
 ```
-
-TODO: add windows based examples
-
 `factorio_mod_path` describes the folder where all your mods are. On my machine this is in the home folder, on windows it will be somewhere else
 `factorio_run_path` is the path to the executable (Factorio.exe on windows)
 
@@ -142,6 +142,11 @@ Faketorio will generate a new map, copy your mod and the tests and starts Factor
 
 As soon as you are in game you can open the [debug console](https://wiki.factorio.com/Console) and enter
 `/faketorio`. Simply run the command and all your tests will be executed.
+
+You will see a dialog popping up in the middle of the screen. The top bar indicates progress on feature level,
+the lower bar indicates progress on scenario level for the currently running feature.
+
+If there are test errors they will be documented in the textbox below the progress bar after the testrun finishes.
 
 #### Marking tests as success/failure
 

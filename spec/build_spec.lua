@@ -19,14 +19,12 @@ describe("Test the build functionality #build", function()
         file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
-        stub(faketorio, "load_config")
     end)
 
     lazy_teardown(function()
         faketorio.delete_directory("locale")
         faketorio.delete_directory("src/for_test")
         faketorio.clean()
-        faketorio.load_config:revert()
     end)
 
     if not busted then busted = {} end

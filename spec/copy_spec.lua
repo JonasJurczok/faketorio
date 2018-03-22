@@ -13,11 +13,8 @@ describe("Test the copy functionality #copy", function()
         file = io.open("locale/en/blub.cfg", "w")
         file:write("asdasd")
         file:close()
-        stub(faketorio, "load_config")
 
         faketorio.lfs.mkdir("factorio")
-        faketorio.factorio_mod_path = "factorio"
-        faketorio.faketorio_path = "src"
 
     end)
 
@@ -25,7 +22,6 @@ describe("Test the copy functionality #copy", function()
         faketorio.delete_directory("locale")
         faketorio.delete_directory("factorio")
         faketorio.clean()
-        faketorio.load_config:revert()
     end)
 
     if not busted then busted = {} end

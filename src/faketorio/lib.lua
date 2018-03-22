@@ -24,7 +24,7 @@ function faketorio.execute(args)
     end
 
     -- allways assemble and load the config
-    faketorio.load_config()
+    faketorio.load_config(args.config)
     faketorio.build()
 
     if (args.build) then

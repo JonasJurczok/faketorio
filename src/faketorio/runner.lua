@@ -27,6 +27,7 @@ function faketorio.parse_arguments()
             "Run the game with the current version of the mod and execute all tests as soon as you are in game.")
     parser:flag("-v --verbose",
             "Show log output in the terminal.")
+    parser:option("-c --config", "Path to the config file to use. Defaults to current folder.")
 
     local args = parser:parse()
     args.path = faketorio.lfs.currentdir()
