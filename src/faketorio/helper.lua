@@ -68,10 +68,19 @@ function faketorio.get_mod_info()
     return json:decode(faketorio.read_file("info.json"))
 end
 
-function faketorio.load_config()
-    faketorio.print_message("Loading .faketorio config.")
-    -- TODO: add parameter to change config location
-    local content = faketorio.read_file(os.getenv("HOME") .. "/.faketorio")
+function faketorio.load_config(path)
+
+    if (path == nil or path == "") then
+            path = ".faketorio"
+    end
+
+    faketorio.print_message("Loading config from [%s].", {path})
+
+    local content = faketorio.read_file(path)
+
+    if (content == nil or content == "") then
+        error("Loading config failed.")
+    end
 
     local tea = require("teateatea")
     local cfg = tea.kvpack(content, "=", "\n", true, true, true)
