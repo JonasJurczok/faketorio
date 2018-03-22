@@ -12,7 +12,7 @@ function faketorio.run()
 
     local feature_count = faketorio.count(faketorio.features)
     local current_feature = 0
-    for feature_name, scenarios in pairs(faketorio.features) do
+    for feature_name, feature in pairs(faketorio.features) do
         current_feature = current_feature + 1
         faketorio.log.info("Starting Feature [%s] (%s/%s).", { feature_name, current_feature, feature_count})
 
@@ -20,9 +20,11 @@ function faketorio.run()
             faketorio.listener.feature_started(feature_name)
         end
 
+        local scenarios = feature.scenarios
         local scenario_count = faketorio.count(scenarios)
         local current_scenario = 0
         for scenario_name, scenario in pairs(scenarios) do
+
             current_scenario = current_scenario + 1
             faketorio.log.info("Starting Scenario %s (%s/%s).", {scenario_name, current_scenario, scenario_count})
 
@@ -30,7 +32,14 @@ function faketorio.run()
                 faketorio.listener.scenario_started(current_scenario, scenario_count)
             end
 
+            if (feature.before_scenario) then
+                feature.before_scenario()
+            end
             local status, error = pcall(scenario)
+            if (feature.after_scenario) then
+                feature.after_scenario()
+            end
+
             if (status) then
                 faketorio.log.debug("Finished Scenario %s.", {scenario_name})
 
@@ -183,12 +192,24 @@ end
 
 function feature(name, func)
     faketorio.log.info("Registering feature [%s].", {name})
-    faketorio.features[name] = {}
+    faketorio.features[name] = {
+        scenarios = {}
+    }
     faketorio.current_name = name
     func()
 end
 
 function scenario(name, func)
     faketorio.log.info("Registering scenario [%s] for feature [%s]", {name, faketorio.current_name})
-    faketorio.features[faketorio.current_name][name] = func
+    faketorio.features[faketorio.current_name].scenarios[name] = func
+end
+
+function before_scenario(func)
+    faketorio.log.info("Registering before_scenario for feature [%s]", {faketorio.current_name})
+    faketorio.features[faketorio.current_name].before_scenario = func
+end
+
+function after_scenario(func)
+    faketorio.log.info("Registering after_scenario for feature [%s]", {faketorio.current_name})
+    faketorio.features[faketorio.current_name].after_scenario = func
 end
