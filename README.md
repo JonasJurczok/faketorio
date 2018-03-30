@@ -119,6 +119,16 @@ The tests are inspired by [busted](https://github.com/Olivine-Labs/busted) and u
 -- in mod_feature.lua
 feature("My first feature", function()
     
+    before_scenario(function()
+        -- will be called before every scenario in this feature
+        -- this is intended for setting up preconditions for this specific feature
+    end)
+
+    after_scenario(function()
+        -- will be called after every scenario in this feature
+        -- this is intended to bring the mod back into a state as it would be expected from the next test
+    end)
+    
     scenario("The first scenario", function()
         faketorio.click("todo_maximize_button")
         faketorio.log.info("my first test")

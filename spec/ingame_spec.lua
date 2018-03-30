@@ -48,6 +48,7 @@ describe("Test feature/scenario registration #ingame", function()
     end)
 
     lazy_teardown(function()
+        faketorio.features = {}
         faketorio.clean()
         faketorio.log.print:revert()
     end)
@@ -85,9 +86,9 @@ describe("Test feature/scenario registration #ingame", function()
         local fcount = 0
         local scount = 0
 
-        for _, value in pairs(faketorio.features) do
+        for _, feature in pairs(faketorio.features) do
             fcount = fcount + 1
-            for _ in pairs(value) do
+            for _ in pairs(feature.scenarios) do
                 scount = scount + 1
             end
         end
@@ -142,7 +143,28 @@ describe("Test feature/scenario registration #ingame", function()
 
         faketorio.run()
 
-        assert.are.equals("spec/ingame_spec.lua:138: Failure", faketorio.errors["F2"]["S1"])
+        assert.are.equals("spec/ingame_spec.lua:139: Failure", faketorio.errors["F2"]["S1"])
+    end)
+
+    it("should execute before/after each functions correctly", function()
+        faketorio.testcount = 0
+
+        feature("F2", function()
+            before_scenario(function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+
+            after_scenario(function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+
+            scenario("S2", function()
+                faketorio.testcount = faketorio.testcount + 1
+            end)
+        end)
+
+        faketorio.run()
+        assert.are.equals(3, faketorio.testcount)
     end)
 
     it("should enable clicking on things", function()
