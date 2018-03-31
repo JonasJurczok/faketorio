@@ -19,10 +19,6 @@ The problem with unit testing is that it only gets you so far. The most interest
 Enter Faketorio. The goal is to provide a standard system for running your mod against your local Factorio installation, execute tests INSIDE
 Factorio and then package your mod for release.
 
-## TODO
-Some things are still incomplete. e.g:
-* Actually zipping the mod for upload. Assembling a folder works already, zipping is still missing
-
 ## Installation
 
 If you use [LuaRocks](https://luarocks.org) for your lua modules it is as easy as running `luarocks install faketorio`.
@@ -98,8 +94,8 @@ If you already have Factorio running this command will replace the mod in the Fa
 With this you can just click `restart map` in the game and have the newest version of the mod loaded. ATTENTION: changing locales/grafics requires a restart of the game
 as these resources are only loaded on game startup.
 * `faketorio package` \
-This command creates a properly named folder in the target folder that is named according to the Factorio mod naming conventions (ModName_Version). The information
-for this are extracted from your `info.json`. This mod can then be zipped and uploaded to the mod portal (TODO: Zip is done for you).
+This command creates a properly named zipfile in the target folder that is named according to the Factorio mod naming conventions (ModName_Version). The information
+for this are extracted from your `info.json`. This file can then be uploaded to the Factorio mod portal.
 * `faketorio run` \
 This command does roughly the same as the `build` command. Except that it also copies the folder to your factorio mod folder and then starts Factorio.
 It will order Factorio to create a new map, load your mod and then run Factorio with that newly generated map. This gives you a clean game to test your mod.
