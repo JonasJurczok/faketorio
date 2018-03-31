@@ -15,6 +15,7 @@ before_install:
   - sudo luarocks install luafilesystem
   - sudo luarocks install teateatea
   - sudo luarocks install json-lua
+  - sudo luarocks install lua-zlib
 
 script:
   - ./build.sh

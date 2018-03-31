@@ -1,5 +1,5 @@
 
-globals = {"faketorio", "busted", "feature", "scenario", "before_scenario", "after_scenario", "commands", "game", "defines", "script", "when"}
+globals = {"faketorio", "busted", "feature", "scenario", "before_scenario", "after_scenario", "commands", "game", "defines", "script", "when", "unpack"}
 read_globals = {
     os = {
         fields = {

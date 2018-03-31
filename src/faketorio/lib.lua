@@ -6,6 +6,7 @@ require("faketorio.helper")
 require("faketorio.clean")
 require("faketorio.build")
 require("faketorio.test")
+require("faketorio.package")
 
 function faketorio.execute(args)
     if (args.verbose) then
@@ -51,8 +52,8 @@ function faketorio.execute(args)
         faketorio.print_message("Copying finished.")
     elseif (args.package) then
         -- execute build
-        -- TODO: implement packaging the mod (2)
         faketorio.print_message("Packaging mod")
+        faketorio.package()
     end
 end
 
