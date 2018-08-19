@@ -34,4 +34,8 @@ function faketorio.parse_arguments()
     return args
 end
 
+-- apparently sometimes this is not done properly.
+require("luarocks.core.cfg"):init()
+require("luarocks.fs"):init()
+
 faketorio.execute(faketorio.parse_arguments())
