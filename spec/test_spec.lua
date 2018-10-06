@@ -33,12 +33,7 @@ describe("Test the test command #test", function()
     end
 
     it("should copy all test infra files to the target folder", function()
-        local config = io.open(os.getenv("HOME") .. "/.faketorio", "w")
-        config:write("faketorio_path = src\n")
-        config:write("factorio_mod_path = target\n")
-        config:close()
-
-        faketorio.execute({test = true, path = "asd"})
+        faketorio.execute({test = true, path = "asd", verbose = true})
 
         for _, file in pairs(busted.collect_file_names("src/ingame")) do
             file = string.gsub(file, "src/ingame", "target/Faketorio-test-mod_0.1.0/faketorio")

@@ -143,7 +143,7 @@ describe("Test feature/scenario registration #ingame", function()
 
         faketorio.run()
 
-        assert.are.equals("spec/ingame_spec.lua:139: Failure", faketorio.errors["F2"]["S1"])
+        assert.is_Truthy(faketorio.errors["F2"]["S1"]:find("ingame_spec.lua:139: Failure"))
     end)
 
     it("should execute before/after each functions correctly", function()

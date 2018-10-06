@@ -24,8 +24,15 @@ dependencies = {
     "luafilesystem >= 1.7.0",
     "teateatea >= 1.3",
     "json-lua >= 0.1",
-    "lua-zlib >= 1.2.0",
-    "luarocks >= 2.3.0"
+    "luarocks >= 3.0.1",
+    platforms = {
+        macosx = {
+            "lua-zlib >= 1.2.0"
+        },
+        linux = {
+            "lua-zlib >= 1.2.0"
+        }
+    }
 }
 build = {
     type = "builtin",
@@ -46,6 +53,18 @@ build = {
     install = {
         bin = {
             ["faketorio"] = "bin/faketorio"
+        }
+    },
+    platforms = {
+        windows = {
+            copy_directories = {
+                "tools"
+            }
+        },
+        cygwin = {
+            copy_directories = {
+                "tools"
+            }
         }
     }
 }
