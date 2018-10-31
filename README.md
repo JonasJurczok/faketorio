@@ -205,9 +205,12 @@ will replace the `.text` attribute with the provided `text`.
 
 ##### faketorio.find_element_by_id(id, player)
 
-Returns a [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html) with the given `id` for the given `player`.
+Returns a [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html) with the given `id` for the given `player` or `nil if element does not exist.
 Both parameters are mandatory.
 
+##### faketorio.ensure_element_exists(id, player)
+
+Like `find_element_by_id` but will fail if element is not found.
 
 #### logging
 

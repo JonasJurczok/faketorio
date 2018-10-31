@@ -145,6 +145,13 @@ function faketorio.enter_text(id, text)
     element.text = text
 end
 
+function faketorio.assert_element_exists(id, player)
+    local element = faketorio.find_element_by_id(id, player)
+    local error = string.format("Could not find element with id [%s] for player [%s].", id, player.name)
+    assert(element ~= nil, debug.traceback(error))
+    return element
+end
+
 function faketorio.find_element_by_id(id, player)
 
     faketorio.log.trace("Starting find by id for id [%s] and player [%s].", {id, player.name})
@@ -164,7 +171,7 @@ function faketorio.find_element_by_id(id, player)
         end
     end
 
-    error(debug.traceback(string.format("Could not find element with id [%s] for player [%s].", id, player.name)))
+    return nil
 end
 
 function faketorio.do_find_element_by_id(id, element)

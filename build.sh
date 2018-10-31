@@ -5,7 +5,7 @@ set -e
 rm -f luacov.*.out
 
 luacheck src spec
-busted -c
+busted -c -v
 
 echo "Checking where we should deploy or not. Tag is ${TRAVIS_TAG}, branch is ${TRAVIS_BRANCH} and pull request is ${TRAVIS_PULL_REQUEST}".
 if [ -n "${TRAVIS_TAG}" ] ; then

@@ -194,6 +194,25 @@ describe("Test feature/scenario registration #ingame", function()
         assert.are.equals("wololo", element.text)
     end)
 
+    it("should find an existing element.", function ()
+        local byId = faketorio.find_element_by_id("testId", game.players[1])
+        assert.are.equals("testId", byId.name, "find by id failed.")
+
+        local assert_exists = faketorio.assert_element_exists("testId", game.players[1])
+        assert.are.equals("testId", assert_exists.name, "assert exists failed.")
+    end)
+
+    it("should work for non existing element.", function ()
+        local element = faketorio.find_element_by_id("testId222", game.players[1])
+        assert.are.equals(nil, element)
+    end)
+
+    it("should fail for asserting non existing elements.", function ()
+        local result, error = pcall(faketorio.assert_element_exists,"testId222", game.players[1])
+        assert.False(result)
+        assert.is_Truthy(error)
+    end)
+
     it("should fail to enter text on invalid element type.", function()
         assert.has_errors(function() faketorio.enter_text("someOtherId", "shouldFail") end)
     end)
