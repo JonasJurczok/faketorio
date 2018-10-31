@@ -140,7 +140,7 @@ function faketorio.enter_text(id, text)
     local element = assert(faketorio.find_element_by_id(id, player))
 
     local error_message = string.format("Element with id [%s] has invalid type [%s].", id, element.type)
-    assert(element.type == "textfield" or element.type == "text-box", error_message)
+    assert(element.type == "textfield" or element.type == "text-box", debug.traceback(error_message))
 
     element.text = text
 end
@@ -164,7 +164,7 @@ function faketorio.find_element_by_id(id, player)
         end
     end
 
-    error(string.format("Could not find element with id [%s] for player [%s].", id, player.name))
+    error(debug.traceback(string.format("Could not find element with id [%s] for player [%s].", id, player.name)))
 end
 
 function faketorio.do_find_element_by_id(id, element)
@@ -188,7 +188,6 @@ function faketorio.do_find_element_by_id(id, element)
         end
     end
 end
-
 
 function feature(name, func)
     faketorio.log.info("Registering feature [%s].", {name})
