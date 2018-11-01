@@ -257,7 +257,7 @@ Faketorio provides the following functions
     </tr>
     <tr>
       <td>faketorio.find_element_by_id</td>
-      <td>name - the name of the element to enter text in</td>
+      <td>name - the name of the element</td>
       <td rowspan="2">Returns the element with the given name.<br>
         Returns nil if the element does not exist.
       </td>
@@ -268,8 +268,46 @@ Faketorio provides the following functions
                    If not provided the first player in game will be used</td>
     </tr>
     <tr>
+      <td>faketorio.check</td>
+      <td>name - the name of the checkbox</td>
+      <td rowspan="2">Sets the checkbox state to true<br>
+        If the checkbox does not exist or is not a checkbox an exception is thrown.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+    <tr>
+      <td>faketorio.uncheck</td>
+      <td>name - the name of the checkbox</td>
+      <td rowspan="2">Sets the checkbox state to false<br>
+        If the checkbox does not exist or is not a checkbox an exception is thrown.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Assertions
+
+The following assertions are provided by faketorio
+
+<table>
+  <tbody>
+    <tr>
+      <th>Function name</th>
+      <th>Parameters</th>
+      <th>Return value/Action</th>
+    </tr>
+    <tr>
       <td>faketorio.assert_element_exists</td>
-      <td>name - the name of the element to enter text in</td>
+      <td>name - the name of the element</td>
       <td rowspan="2">Returns the element with the given name.<br>
         Throws exception if the element does not exist.
       </td>
@@ -281,9 +319,33 @@ Faketorio provides the following functions
     </tr>
     <tr>
       <td>faketorio.assert_element_not_exists</td>
-      <td>name - the name of the element to enter text in</td>
+      <td>name - the name of the element</td>
       <td rowspan="2">Asserts that the element does not exist.<br>
         If the element is found an exception is thrown.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+    <tr>
+      <td>faketorio.assert_checked</td>
+      <td>name - the name of the checkbox</td>
+      <td rowspan="2">Asserts that the checkbox is checked.<br>
+        If the element is not found or is not a checkbox an exception is thrown.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+    <tr>
+      <td>faketorio.assert_unchecked</td>
+      <td>name - the name of the checkbox</td>
+      <td rowspan="2">Asserts that the checkbox is unchecked.<br>
+        If the element is not found or is not a checkbox an exception is thrown.
       </td>
     </tr>
     <tr>

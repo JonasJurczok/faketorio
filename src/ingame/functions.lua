@@ -19,8 +19,6 @@ function faketorio.click(name, player)
 end
 
 function faketorio.enter_text(name, text, player)
-    player = player or game.players[1]
-
     local element = assert(faketorio.find_element_by_id(name, player))
 
     local error_message = string.format("Element with id [%s] has invalid type [%s].", name, element.type)
@@ -43,6 +41,8 @@ function faketorio.assert_element_exists(name, player)
 end
 
 function faketorio.find_element_by_id(name, player)
+
+    player = player or game.players[1]
 
     faketorio.log.trace("Starting find by id for id [%s] and player [%s].", { name, player.name})
     local guis = {["top"] = player.gui.top,
@@ -84,4 +84,47 @@ function faketorio.do_find_element_by_id(name, element)
             return result
         end
     end
+end
+
+function faketorio.check(name, player)
+    faketorio.set_state(name, player, true)
+end
+
+function faketorio.uncheck(name, player)
+    faketorio.set_state(name, player, false)
+end
+
+function faketorio.set_state(name, player, state)
+    player = player or game.players[1]
+
+    local checkbox = faketorio.assert_element_exists(name, player)
+
+    if (checkbox.type ~= "checkbox") then
+        local message = string.format("Element [%s] is of type [%s]. Checkbox expected.", checkbox.name, checkbox.type)
+        assert(checkbox.type == "checkbox", debug.traceback(message))
+    end
+
+    checkbox.state = state
+end
+
+function faketorio.assert_checked(name, player)
+    faketorio.assert_state(name, player, true)
+end
+
+function faketorio.assert_unchecked(name, player)
+    faketorio.assert_state(name, player, false)
+end
+
+function faketorio.assert_state(name, player, state)
+    player = player or game.players[1]
+
+    local checkbox = faketorio.assert_element_exists(name, player)
+
+    if (checkbox.type ~= "checkbox") then
+        local message = string.format("Element [%s] is of type [%s]. Checkbox expected.", checkbox.name, checkbox.type)
+        assert(checkbox.type == "checkbox", debug.traceback(message))
+    end
+
+    local message = string.format("Unexpected checkbox state. Expected [%s] but found [%s]", state, checkbox.state)
+    assert(checkbox.state == state, debug.traceback(message))
 end

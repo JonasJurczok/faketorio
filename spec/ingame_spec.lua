@@ -38,7 +38,15 @@ describe("Test feature/scenario registration #ingame", function()
                                     name = "testId",
                                     text = "",
                                     children = {}
+                                },
+                                {
+                                    type = "checkbox",
+                                    name = "checkbox",
+                                    text = "",
+                                    state = false,
+                                    children = {}
                                 }
+
                             }
                         }
                     }
@@ -144,7 +152,7 @@ describe("Test feature/scenario registration #ingame", function()
 
         faketorio.run()
 
-        assert.is_Truthy(faketorio.errors["F2"]["S1"]:find("ingame_spec.lua:140: Failure"))
+        assert.is_Truthy(faketorio.errors["F2"]["S1"]:find("ingame_spec.lua:148: Failure"))
     end)
 
     it("should execute before/after each functions correctly", function()
@@ -228,4 +236,66 @@ describe("Test feature/scenario registration #ingame", function()
     it("should fail to enter text on invalid element type.", function()
         assert.has_errors(function() faketorio.enter_text("someOtherId", "shouldFail") end)
     end)
+
+    it("should be able to check a checkbox", function()
+        faketorio.check("checkbox", game.players[1])
+
+        local checkbox = faketorio.find_element_by_id("checkbox", game.players[1])
+        assert.True(checkbox.state)
+    end)
+
+    it("should be able to uncheck a checkbox", function()
+        faketorio.check("checkbox", game.players[1])
+        faketorio.uncheck("checkbox", game.players[1])
+
+        local checkbox = faketorio.find_element_by_id("checkbox", game.players[1])
+        assert.False(checkbox.state)
+    end)
+
+    it("setting state should fail if it is not a checkbox", function()
+        local state, error = pcall(faketorio.check, "testId", game.players[1])
+
+        assert.False(state)
+        assert.is_Truthy(error)
+
+        state, error = pcall(faketorio.uncheck, "testId", game.players[1])
+
+        assert.False(state)
+        assert.is_Truthy(error)
+    end)
+
+    it("should be possible to assert checkbox state.", function()
+        faketorio.check("checkbox", game.players[1])
+
+        local state, result = pcall(faketorio.assert_checked, "checkbox", game.players[1])
+        assert.True(state)
+        assert.is_Falsy(result)
+
+        state, result = pcall(faketorio.assert_unchecked, "checkbox", game.players[1])
+        assert.False(state)
+        assert.is_Truthy(result)
+
+        faketorio.uncheck("checkbox", game.players[1])
+
+        state, result = pcall(faketorio.assert_unchecked, "checkbox", game.players[1])
+        assert.True(state)
+        assert.is_Falsy(result)
+
+        state, result = pcall(faketorio.assert_checked, "checkbox", game.players[1])
+        assert.False(state)
+        assert.is_Truthy(result)
+    end)
+
+    it("asserting state should fail if it is not a checkbox", function()
+        local state, error = pcall(faketorio.assert_checked, "testId", game.players[1])
+
+        assert.False(state)
+        assert.is_Truthy(error)
+
+        state, error = pcall(faketorio.assert_unchecked, "testId", game.players[1])
+
+        assert.False(state)
+        assert.is_Truthy(error)
+    end)
+
 end)
