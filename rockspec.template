@@ -44,6 +44,7 @@ build = {
         ["faketorio.package"] = "src/faketorio/package.lua",
         ["faketorio.runner"] = "src/faketorio/runner.lua",
         ["faketorio.test"] = "src/faketorio/test.lua",
+        ["faketorio.ingame.command"] = "src/ingame/command.lua",
         ["faketorio.ingame.core"] = "src/ingame/core.lua",
         ["faketorio.ingame.functions"] = "src/ingame/functions.lua",
         ["faketorio.ingame.logging"] = "src/ingame/logging.lua",

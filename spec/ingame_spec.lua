@@ -1,5 +1,6 @@
 describe("Test feature/scenario registration #ingame", function()
     lazy_setup(function()
+        require("ingame.core")
         require("ingame.functions")
         require("ingame.logging")
         require("faketorio.lib")
@@ -143,7 +144,7 @@ describe("Test feature/scenario registration #ingame", function()
 
         faketorio.run()
 
-        assert.is_Truthy(faketorio.errors["F2"]["S1"]:find("ingame_spec.lua:139: Failure"))
+        assert.is_Truthy(faketorio.errors["F2"]["S1"]:find("ingame_spec.lua:140: Failure"))
     end)
 
     it("should execute before/after each functions correctly", function()
@@ -207,8 +208,19 @@ describe("Test feature/scenario registration #ingame", function()
         assert.are.equals(nil, element)
     end)
 
-    it("should fail for asserting non existing elements.", function ()
+    it("should fail for asserting non existing element.", function ()
         local result, error = pcall(faketorio.assert_element_exists,"testId222", game.players[1])
+        assert.False(result)
+        assert.is_Truthy(error)
+    end)
+
+    it("not exists should succeed for non existing element.", function()
+        local result, _ = pcall(faketorio.assert_element_not_exists,"testId222", game.players[1])
+        assert.True(result)
+    end)
+
+    it("not exists should fail for asserting existing elements.", function ()
+        local result, error = pcall(faketorio.assert_element_not_exists,"testId", game.players[1])
         assert.False(result)
         assert.is_Truthy(error)
     end)

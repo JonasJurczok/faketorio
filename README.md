@@ -81,29 +81,59 @@ With the configuration in place and the mod structured we can now start interact
 To do this open a terminal (or command line with start -> execute -> cmd on windows) and navigate to the folder where you do your development (ideally NOT inside the Factorio mods folder ;).
 
 Now you can execute the faketorio commands to interact with your mod and Factorio.
-
-* `faketorio build` \
-This will simply create a properly named and filled folder in the `target` folder. This is the basis for all
-other commands and will be executed implicitly for you. You can use it to verify the contents of
-your packaged mod before it actually gets packaged.
-* `faketorio clean` \
-This command simply removes the target folder to give you a clean start (if in doubt about the contents and you want to force a regeneration of the mod)
-* `faketorio copy` \
-This command is used to reduce the `develop -> copy mod -> start Factorio -> test -> close Factorio -> develop` cycle.
-If you already have Factorio running this command will replace the mod in the Factorio mods folder with the version that you are currently developing.
-With this you can just click `restart map` in the game and have the newest version of the mod loaded. ATTENTION: changing locales/grafics requires a restart of the game
-as these resources are only loaded on game startup.
-* `faketorio package` \
-This command creates a properly named zipfile in the target folder that is named according to the Factorio mod naming conventions (ModName_Version). The information
-for this are extracted from your `info.json`. This file can then be uploaded to the Factorio mod portal.
-* `faketorio run` \
-This command does roughly the same as the `build` command. Except that it also copies the folder to your factorio mod folder and then starts Factorio.
-It will order Factorio to create a new map, load your mod and then run Factorio with that newly generated map. This gives you a clean game to test your mod.
-As Factorio loads mods that are not zipped over mods that are zipped you don't even have to change the version number in your `info.json`.
-* `faketorio test` \
-This command works like the run command except that it also adds all your `faketorio feature files` to the mod, enabeling you to run your
-automated tests inside Factorio. Simply wait for Factorio to finish loading and then type `/faketorio` into the [debug console](https://wiki.factorio.com/Console) ingame.
-ATTENTION: This is not completely implemented yet!!
+<table>
+  <tbody>
+    <tr>
+      <th>Command name</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>faketorio build</td>
+      <td>
+        Creates a subfolder in target/&lt;your mod name_version&gt;.<br>
+        The mod name and version are read from the info.json.<br>
+        Copies all mod src files, locales and other resources to this folder.<br><br>
+        Intended if you want to take a look at your mod but not produce an uploadable zip file.
+      </td>
+    </tr>
+    <tr>
+      <td>faketorio clean</td>
+      <td>
+        Deletes the target folder.
+      </td>
+    </tr>
+    <tr>
+      <td>faketorio copy</td>
+      <td>
+        Copies the mod to the factorio mod folder defined in the .faketorio config.<br>
+        In Factorio you can click restart to see the current version of your mod.<br>
+        Restarting Factorio is only necessary if you changed locales or graphics.
+      </td>
+    </tr>
+    <tr>
+      <td>faketorio package</td>
+      <td>
+        Creates a zip file that is ready for uploading to the <a href="https://mods.factior.com">factorio mod portal</a>.
+      </td>
+    </tr> 
+    <tr>
+      <td>faketorio run</td>
+      <td>
+        Runs the build and copy command.<br>
+        Generates a new Factorio map.<br>
+        Factorio is started and this newly generated map is loaded.
+      </td>
+    </tr> 
+    <tr>
+      <td>faketorio test</td>
+      <td>
+        This command runs Factorio on a new map.<br>
+        Your mod will also contain all your feature files and the faketorio test engine.<br>
+        Ingame type /faketorio in the <a href="https://wiki.factorio.com/Console">debug console</a> to run all your tests.
+      </td>
+    </tr>      
+  </tbody>
+</table>
 
 ### Tests
 
@@ -185,32 +215,84 @@ Run contained 1 features.
 
 #### Interacting with Factorio
 
-Of course just interacting with the data/tables of your mod is not enough. You also have to be able to mimic player behaviour.
-This is what the following functions are for.
+Faketorio provides the following functions
 
-##### faketorio.click(name)
-
-To interact with your mod you need to be able to click on things ;) This is what the `click` function is for.
-The `name` parameter is the `name` of your [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html). 
-
-Faketorio will search through the four guis (left, top, center, goal) of the **first** player in the players list.
-If an element with the provided name is found it will [raise an event](http://lua-api.factorio.com/latest/LuaBootstrap.html#LuaBootstrap.raise_event)
-for this element.
-
-Currently only left mouse button clicks without modifiers (shift, alt, control) are supported.
-
-##### faketorio.enter_text(name, text)
-This function enters text into a text field. Simply provide a `name` to look for and faketorio
-will replace the `.text` attribute with the provided `text`.
-
-##### faketorio.find_element_by_id(id, player)
-
-Returns a [gui element](http://lua-api.factorio.com/latest/LuaGuiElement.html) with the given `id` for the given `player` or `nil if element does not exist.
-Both parameters are mandatory.
-
-##### faketorio.ensure_element_exists(id, player)
-
-Like `find_element_by_id` but will fail if element is not found.
+<table>
+  <tbody>
+    <tr>
+      <th>Function name</th>
+      <th>Parameters</th>
+      <th>Return value/Action</th>
+    </tr>
+    <tr>
+      <td align="top">faketorio.click</td>
+      <td align="top">name - the name of the <a href="http://lua-api.factorio.com/latest/LuaGuiElement.html">gui element</a> to click on</td>
+      </td>
+      <td rowspan="2">If the element exists a defines.events.on_gui_click event for the provided element will be <a href="http://lua-api.factorio.com/latest/LuaBootstrap.html#LuaBootstrap.raise_event">raised</a>.<br>
+          If the element does not exist an exception is thrown. <br><br>
+          Currently only left clicks without modifiers (ctrl, alt, shift) are supported.
+      </td>
+    </tr>
+    <tr>
+      <td/>
+      <td>player - (optional) the player who owns the element. <br>
+          If not provided the first player in game will be used
+      </td>
+    </tr>
+    <tr>
+      <td>faketorio.enter_text</td>
+      <td>name - the name of the element to enter text in</td>
+      <td rowspan="3">Sets the text attribute of the named element to the text.<br>
+          This does NOT fire all the keystroke events you would expect from actually entering the text!
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>text - the text to enter</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - (optional) the player who owns the element. <br>
+                    If not provided the first player in game will be used</td>
+    </tr>
+    <tr>
+      <td>faketorio.find_element_by_id</td>
+      <td>name - the name of the element to enter text in</td>
+      <td rowspan="2">Returns the element with the given name.<br>
+        Returns nil if the element does not exist.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+    <tr>
+      <td>faketorio.assert_element_exists</td>
+      <td>name - the name of the element to enter text in</td>
+      <td rowspan="2">Returns the element with the given name.<br>
+        Throws exception if the element does not exist.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+    <tr>
+      <td>faketorio.assert_element_not_exists</td>
+      <td>name - the name of the element to enter text in</td>
+      <td rowspan="2">Asserts that the element does not exist.<br>
+        If the element is found an exception is thrown.
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>player - The player who owns the element. <br>
+                   If not provided the first player in game will be used</td>
+    </tr>
+  </tbody>
+</table>
 
 #### logging
 
@@ -227,10 +309,10 @@ To create log messages use one of the following functions
 
 ```lua
 -- simple logging
-faketorio.log.trace("my test debug message")
+faketorio.log.trace("my test trace message")
 faketorio.log.debug("my test debug message")
-faketorio.log.info("my test debug message")
-faketorio.log.warn("my test debug message")
+faketorio.log.info("my test info message")
+faketorio.log.warn("my test warn message")
 
 -- logging with parameter expansion (prints "my test pattern wololo.")
 faketorio.log.trace("my test pattern %s.", {"wololo"})

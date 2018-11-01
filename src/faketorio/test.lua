@@ -23,7 +23,7 @@ function faketorio.integrate_tests()
     faketorio.print_message("Integrating tests with the mod.")
     local control = io.open(faketorio.output_folder .. "/control.lua", "a")
 
-    control:write("\nrequire(\"faketorio.core\")\n")
+    control:write("\nrequire(\"faketorio.command\")\n")
 
     for file in faketorio.lfs.dir(faketorio.output_folder .. "/faketorio/features") do
         if (string.find(file, "_feature.lua")) then

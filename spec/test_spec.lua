@@ -70,7 +70,7 @@ describe("Test the test command #test", function()
         local control = faketorio.read_file("target/Faketorio-test-mod_0.1.0/control.lua")
 
         local contentIndex = string.find(control, "test content")
-        local runnerIndex = string.find(control, "require%(\"faketorio.core\"%)")
+        local runnerIndex = string.find(control, "require%(\"faketorio.command\"%)")
         local featureIndex = string.find(control, "require%(\"faketorio.features.dummy_feature\"%)")
         assert.is_true(contentIndex > 0)
         assert.is_true(runnerIndex > contentIndex)
