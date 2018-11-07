@@ -19,7 +19,9 @@ function faketorio.click(name, player)
 end
 
 function faketorio.enter_text(name, text, player)
-    local element = assert(faketorio.find_element_by_id(name, player))
+    player = player or game.players[1]
+
+    local element = faketorio.assert_element_exists(name, player)
 
     local error_message = string.format("Element with id [%s] has invalid type [%s].", name, element.type)
     assert(element.type == "textfield" or element.type == "text-box", debug.traceback(error_message))
