@@ -5,7 +5,7 @@ function faketorio.click(name, player)
     player = player or game.players[1]
 
     -- search for element
-    local element = assert(faketorio.find_element_by_id(name, player))
+    local element = faketorio.assert_element_exists(name, player)
 
     local event = {}
     event.element = element
