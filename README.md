@@ -62,18 +62,30 @@ is provided faketorio will search for a file named `.faketorio` in the current f
 This file has to have three values configured.
 
 ```properties
-factorio_mod_path = /home/jjurczok/.factorio/mods
-factorio_run_path = /home/jjurczok/.local/share/Steam/steamapps/common/Factorio/bin/x64/factorio
+factorio_mod_path = "/home/jjurczok/.factorio/mods"
+factorio_run_path = "/home/jjurczok/.local/share/Steam/steamapps/common/Factorio/bin/x64/factorio"
 
 # windows based example
-factorio_run_path = D:\Spiele\Factorio\bin\x64\factorio.exe
+factorio_run_path = "D:\Spiele\Factorio\bin\x64\factorio.exe"
 
-faketorio_path = /usr/share/lua/5.2/faketorio
+faketorio_path = "/usr/share/lua/5.2/faketorio"
 ```
 `factorio_mod_path` describes the folder where all your mods are. On my machine this is in the home folder, on windows it will be somewhere else
 `factorio_run_path` is the path to the executable (Factorio.exe on windows)
 
 `faketorio_path` is the path where you installed faketorio itself. If you installed it via `luarocks` you can find this path with `luarocks show faketorio` or `luarocks doc faketorio`
+
+#### Including custom files
+If you want to inlcude custom files into your zip you can specifiy it your `.faketorio` file like this:
+
+```properties
+include_files = {
+    ["filename"] = "target file name"
+}
+```
+This will look for `filename` relative to the current folder.
+If the file is found it will be copied to `target/target file name`.
+
 
 #### Faketorio commands
 

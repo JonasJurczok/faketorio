@@ -14,7 +14,6 @@ before_install:
   - sudo luarocks install luacov
   - sudo luarocks install luacov-coveralls
   - sudo luarocks install luafilesystem
-  - sudo luarocks install teateatea
   - sudo luarocks install json-lua
   - sudo luarocks install lua-zlib
 

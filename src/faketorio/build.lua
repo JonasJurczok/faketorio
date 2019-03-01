@@ -20,6 +20,14 @@ function faketorio.build()
         faketorio.copy_directory("locale", folder.."/locale")
     end
     faketorio.copy_file("info.json", folder.."/info.json")
+    faketorio.copy_file_if_exists("thumbnail.png", folder.."/thumbnail.png")
+    faketorio.copy_file_if_exists("changelog.txt", folder.."/changelog.txt")
+
+    if (faketorio.include_files) then
+        for src, dest in pairs(faketorio.include_files) do
+            faketorio.copy_file(src, folder .. "/" .. dest)
+        end
+    end
 
     -- TODO: find better name
     faketorio.output_folder = folder

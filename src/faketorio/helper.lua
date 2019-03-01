@@ -55,6 +55,15 @@ function faketorio.copy_file(path_src, path_dst)
     target:close()
 end
 
+function faketorio.copy_file_if_exists(path_src, path_dst)
+    if (faketorio.lfs.attributes(path_src) == nil) then
+        return false
+    end
+
+    faketorio.copy_file(path_src, path_dst)
+    return true
+end
+
 function faketorio.read_file(path)
     local f = assert(io.open(path, "r"))
     local content = f:read("*all")
@@ -74,30 +83,43 @@ function faketorio.load_config(path)
             path = ".faketorio"
     end
 
-    faketorio.print_message("Loading config from [%s].", {path})
+    faketorio.print_message("Loading config from [%s].", path)
 
     local content = faketorio.read_file(path)
 
-    if (content == nil or content == "") then
+    content = string.gsub(content, "\\", "\\\\")
+
+    faketorio.print_message(content)
+
+    local config = {}
+    local chunk, err = load(content, "config", "t", config)
+    if (err) then
+        error("Loading config failed: " .. err)
+    end
+    -- actually execute the config file as lua code
+    chunk()
+
+    if (config == nil) then
         error("Loading config failed.")
     end
 
-    local tea = require("teateatea")
-    local cfg = tea.kvpack(content, "=", "\n", true, true, true)
-
-    for key, value in pairs(cfg) do
+    for key, value in pairs(config) do
         faketorio.print_message(string.format("Setting [%s] to [%s]", key, value))
         faketorio[key] = value
     end
 end
 
-function faketorio.print_message(message)
+function faketorio.print_message(message, ...)
     if (not faketorio.verbose) then
         return
     end
 
-    if (type(message) == "string" or message == nil) then
-        print (message)
+    if (message == nil) then
+        print ("Message was nil.")
+    end
+
+    if (type(message) == "string") then
+        print (string.format(message, (...)))
     else
         require"pl.pretty".dump(message)
     end

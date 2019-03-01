@@ -83,4 +83,58 @@ describe("Test the build functionality #build", function()
         assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/info.json"))
     end)
 
+    it("should collect thumbnail.png if exists", function()
+
+        local file = io.open("thumbnail.png", "w")
+        file:write("asdasd")
+        file:close()
+
+        faketorio.execute({build = true})
+
+        assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
+
+        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/thumbnail.png"))
+
+        os.remove("thumbnail.png")
+
+    end)
+
+    it("should collect changelog.txt if exists", function()
+
+        local file = io.open("changelog.txt", "w")
+        file:write("asdasd")
+        file:close()
+
+        faketorio.execute({build = true})
+
+        assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
+
+        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/changelog.txt"))
+
+        os.remove("changelog.txt")
+
+    end)
+
+    it("should include custom files if exists", function()
+
+        local file = io.open("wololo.txt", "w")
+        file:write("asdasd")
+        file:close()
+
+        faketorio.execute({build = true, config = ".faketorio_with_includes"})
+
+        assert.are.equals("target/Faketorio-test-mod_0.1.0", faketorio.output_folder)
+
+        assert.is_Truthy(faketorio.lfs.attributes("target/Faketorio-test-mod_0.1.0/wololo.txt"))
+
+        os.remove("wololo.txt")
+    end)
+
+    it("should fail if custom files don't exist", function()
+
+        local config = {build = true, config = ".faketorio_with_includes"}
+        assert.has_error(function() faketorio.execute(config) end)
+
+    end)
+
 end)
